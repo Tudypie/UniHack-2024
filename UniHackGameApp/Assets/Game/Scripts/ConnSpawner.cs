@@ -79,6 +79,13 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GameObject dropped = eventData.pointerDrag;
         if (dropped != null && dropped.GetComponent<ConnSpawner>())
         {
+            var node = GetComponentInParent<Node>();
+            
+            if(transform.parent == node.outputTransform)
+            {
+
+            }
+
             // Reparent the dragged object to this drop zone
             dropped.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
         }

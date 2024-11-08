@@ -452,11 +452,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1767082260443087084, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 128
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1767082260443087084, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 128
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 1767082260443087084, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -511,9 +511,17 @@ PrefabInstance:
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: connectorPrefab
+      value: 
+      objectReference: {fileID: 5978604673101439055, guid: a2d087194cd941d478ae08a245e5467c, type: 3}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: outPutTransform
       value: 
       objectReference: {fileID: 8652509656602928742}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: _inputs.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: inputTransforms.Array.size
       value: 2
@@ -521,11 +529,11 @@ PrefabInstance:
     - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: 'inputTransforms.Array.data[0]'
       value: 
-      objectReference: {fileID: 7260171161991175745}
+      objectReference: {fileID: 1982007302137808540}
     - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: 'inputTransforms.Array.data[1]'
       value: 
-      objectReference: {fileID: 1982007302137808540}
+      objectReference: {fileID: 7260171161991175745}
     - target: {fileID: 8185724176100015035, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: m_Sprite
       value: 
