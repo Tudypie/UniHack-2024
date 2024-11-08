@@ -14,33 +14,20 @@ public class Player : MonoBehaviour
     public Vector2 mazePosition;
     public Direction direction;
 
-    public Transform GetObstacleInFront(LayerMask layer)
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 0.5f, layer))
-        {
-            return hit.transform;
-        }
-        return null;
-    }
-
-    public bool IsWallInFront()
-    {
-        if (GetObstacleInFront(LayerMask.GetMask("Wall"))) { return true; }
-        return false;
-    }
-
-    public bool IsEnemyInFront()
-    {
-        if (GetObstacleInFront(LayerMask.GetMask("Enemy"))) { return true; }
-        return false;
-    }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.W)) Move();
         if (Input.GetKeyDown(KeyCode.R)) Rotate();
         if (Input.GetKeyDown(KeyCode.Z)) Attack();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Trap"))
+        {
+            Die();
+        }
     }
 
     public void Move()
@@ -81,5 +68,32 @@ public class Player : MonoBehaviour
 
         Transform enemyInFront = GetObstacleInFront(LayerMask.GetMask("Enemy"));
         Destroy(enemyInFront.gameObject);
+    }
+
+    public void Die()
+    {
+        Debug.Log("Die");
+    }
+
+    public Transform GetObstacleInFront(LayerMask layer)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, layer))
+        {
+            return hit.transform;
+        }
+        return null;
+    }
+
+    public bool IsWallInFront()
+    {
+        if (GetObstacleInFront(LayerMask.GetMask("Wall"))) { return true; }
+        return false;
+    }
+
+    public bool IsEnemyInFront()
+    {
+        if (GetObstacleInFront(LayerMask.GetMask("Enemy"))) { return true; }
+        return false;
     }
 }
