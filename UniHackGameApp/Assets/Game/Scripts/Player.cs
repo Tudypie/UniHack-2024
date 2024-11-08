@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -14,9 +13,42 @@ public class Player : MonoBehaviour
     public Vector2 mazePosition;
     public Direction direction;
 
+    [SerializeField] private MazeManager mazeManager;
+
+    private Animator anim;
+
+    public bool IsDead { get; private set; }
+
+    public bool IsWallInFront()
+    {
+        if (GetObstacleInFront(LayerMask.GetMask("Wall"))) { return true; }
+        return false;
+    }
+
+    public bool IsEnemyInFront()
+    {
+        if (GetObstacleInFront(LayerMask.GetMask("Enemy"))) { return true; }
+        return false;
+    }
+
+    public Transform GetObstacleInFront(LayerMask layer)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, layer))
+        {
+            return hit.transform;
+        }
+        return null;
+    }
+
+    private void Awake()
+    {
+        anim = GetComponent<Animator>();
+    }
 
     private void Update()
     {
+        if (IsDead) return;
         if (Input.GetKeyDown(KeyCode.W)) Move();
         if (Input.GetKeyDown(KeyCode.R)) Rotate();
         if (Input.GetKeyDown(KeyCode.Z)) Attack();
@@ -27,6 +59,12 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Trap"))
         {
             Die();
+        }
+
+        if (other.gameObject.CompareTag("Cheese"))
+        {
+            mazeManager.CollectCheese();
+            Destroy(other.gameObject);
         }
     }
 
@@ -72,28 +110,9 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        Debug.Log("Die");
-    }
-
-    public Transform GetObstacleInFront(LayerMask layer)
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, layer))
-        {
-            return hit.transform;
-        }
-        return null;
-    }
-
-    public bool IsWallInFront()
-    {
-        if (GetObstacleInFront(LayerMask.GetMask("Wall"))) { return true; }
-        return false;
-    }
-
-    public bool IsEnemyInFront()
-    {
-        if (GetObstacleInFront(LayerMask.GetMask("Enemy"))) { return true; }
-        return false;
+        if (IsDead) { return; }
+        IsDead = true;
+        anim.Play("Die");
+        GameManager.Instance.ShowLosePanel();
     }
 }

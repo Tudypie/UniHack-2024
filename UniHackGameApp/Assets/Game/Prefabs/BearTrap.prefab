@@ -9,7 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6757860766590666670}
-  m_Layer: 0
+  - component: {fileID: 2164609524005196217}
+  m_Layer: 8
   m_Name: BearTrap
   m_TagString: Trap
   m_Icon: {fileID: 0}
@@ -32,6 +33,27 @@ Transform:
   - {fileID: 5343973627811166505}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2164609524005196217
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6825511535958513581}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.38
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &5594353430551338690
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -42,7 +64,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 08e89ad3a9b71024a883b9018df1802a, type: 3}
       propertyPath: m_LocalScale.x
-      value: 65.217094
+      value: 77.54965
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 08e89ad3a9b71024a883b9018df1802a, type: 3}
       propertyPath: m_LocalScale.y
