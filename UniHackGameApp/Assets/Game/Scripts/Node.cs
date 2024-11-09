@@ -39,12 +39,12 @@ public class Node : MonoBehaviour
     Canvas canvas;
 
     List<ConnectorToNode> spawnedConnectors = new();
-
+     
     public bool TryAddInputNode(Node node, RectTransform parentElement)
     {
         var slot = _inputSlots.FirstOrDefault(slot => slot.parentElement == parentElement);
 
-        if (slot == null)
+        if (slot == null || node == slot.node)
             return false;
 
         slot.node = node;
