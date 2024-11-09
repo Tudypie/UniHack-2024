@@ -896,6 +896,13 @@ MonoBehaviour:
   - {fileID: 4244813917492192063, guid: c2ee4f65228f0e74188514a4ddb15a81, type: 3}
   runButton: {fileID: 4283783586698652493}
   resetButton: {fileID: 8564859149864786457}
+  enabledGates:
+  - NAND
+  - XOR
+  - AND
+  - NOT
+  - NOR
+  - OR
 --- !u!1 &4178535226762356091
 GameObject:
   m_ObjectHideFlags: 0
