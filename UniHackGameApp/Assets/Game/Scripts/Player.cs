@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -34,7 +35,8 @@ public class Player : MonoBehaviour
     public Transform GetObstacleInFront(LayerMask layer)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.forward, out hit, 1f, layer))
+        if (Physics.Raycast(new Vector3(mazePosition.x, transform.position.y, mazePosition.y),
+            transform.forward, out hit, 1f, layer))
         {
             return hit.transform;
         }
@@ -90,7 +92,7 @@ public class Player : MonoBehaviour
 
         }
         mazePosition = newMazePos;
-        transform.position = new Vector3(mazePosition.x, transform.position.y, mazePosition.y);
+        transform.DOMove(new Vector3(mazePosition.x, transform.position.y, mazePosition.y), 0.5f);
     }
 
     public void Rotate()
