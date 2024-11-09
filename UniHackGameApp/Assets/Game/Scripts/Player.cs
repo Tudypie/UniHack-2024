@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         evaluator.SetInput("wall_right", IsWallRight());
         evaluator.SetInput("wall_back", IsWallBack());
         evaluator.SetInput("wall_left", IsWallLeft());
-        evaluator.SetInput("cheese_around", IsCheeseAround());
+        evaluator.SetInput("cheese_near", IsCheeseAround());
         evaluator.SetInput("cheese_front", IsCheeseFront());
         evaluator.SetInput("ate_cheese", ateCheese);
         evaluator.SetInput("trap_front", IsTrapFront());
