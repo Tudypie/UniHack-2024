@@ -8,6 +8,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject mazePrefab;
     [SerializeField] private Transform losePanel;
     [SerializeField] private Transform winPanel;
+    [SerializeField] AudioSource completedAudio;
+   
 
     public Action onLevelRestart { get; set; } = () => { };
 
@@ -45,6 +47,7 @@ public class LevelManager : MonoBehaviour
         winPanel.gameObject.SetActive(true);
         winPanel.localScale = Vector3.zero;
         winPanel.DOScale(1, 1).SetEase(Ease.OutBack).SetDelay(1f);
+        completedAudio.Play();
     }
 
     public void RestartLevel()
