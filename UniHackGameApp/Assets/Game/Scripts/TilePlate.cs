@@ -5,7 +5,7 @@ public class TilePlate : MonoBehaviour
 {
     [SerializeField] private string inputName;
 
-    [SerializeField] private bool oneTimeTrigger = true;
+    [SerializeField] private bool oneTimeTrigger = false;
 
     [SerializeField, Space] private bool triggeredTile;
     [SerializeField] private bool onTile;

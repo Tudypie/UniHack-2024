@@ -377,7 +377,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 548817ad6b20d074d89bb21395920d68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputName: tile_red
+  inputName: on_red
+  oneTimeTrigger: 0
+  triggeredTile: 0
+  onTile: 0
 --- !u!1 &3541363979446054085
 GameObject:
   m_ObjectHideFlags: 0
