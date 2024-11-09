@@ -113,12 +113,25 @@ public class CircuitEvaluator : MonoBehaviour
 
     public void SetInput(string inputName, bool value)
     {
-        inputs.First(ot => ot.name == inputName).value = value;
+        if (InputExists(inputName))
+        {
+            inputs.First(ot => ot.name == inputName).value = value;
+        }
     }
 
     public bool ReadOutput(string outputName)
     {
         return outputs.First(ot=>ot.name == outputName).value;
+    }
+
+    public bool InputExists(string inputName)
+    {
+        return inputs.Any(inp => inp.name == inputName);
+    }
+
+    public bool OutputExists(string outputName)
+    {
+        return outputs.Any(inp => inp.name == outputName);
     }
 
     void OnTick()
