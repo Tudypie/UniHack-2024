@@ -25,6 +25,7 @@ public class LevelManager : MonoBehaviour
     
     private void InstantiateMaze()
     {
+        if (mazePrefab == null) { return; }
         if (mazeClone != null) { Destroy(mazeClone); }
         mazeClone = Instantiate(mazePrefab);
         mazeManager = mazeClone.GetComponent<MazeManager>();
