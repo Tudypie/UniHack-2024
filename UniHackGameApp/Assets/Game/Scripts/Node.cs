@@ -63,6 +63,11 @@ public class Node : MonoBehaviour
         UpdateConnectors();
     }
 
+    public void ResetColor()
+    {
+        outputValue = false;
+    }
+
     void UpdateConnectorTransform(ConnectorToNode connToNode)
     {
         var conn = connToNode.connector;

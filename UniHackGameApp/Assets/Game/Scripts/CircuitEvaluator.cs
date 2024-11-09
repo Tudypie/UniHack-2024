@@ -1,4 +1,5 @@
-﻿using PlasticPipe.PlasticProtocol.Messages;
+﻿using DG.Tweening;
+using PlasticPipe.PlasticProtocol.Messages;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -79,6 +80,16 @@ public class CircuitEvaluator : MonoBehaviour
         isRunning = false;
         lastTimeTicked = 0;
         LevelManager.Instance.RestartLevel();
+        ResetAllNodeValues();
+    }
+
+    public void ResetAllNodeValues()
+    {
+        var children = inputsContainer.parent.GetComponentsInChildren<Node>();
+        foreach(var child in children)
+        {
+            child.ResetColor();
+        }
     }
 
     public void PauseCircuit()
