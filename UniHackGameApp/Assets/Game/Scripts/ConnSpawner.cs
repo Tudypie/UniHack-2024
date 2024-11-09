@@ -60,7 +60,6 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         movedPos += (Vector2)canvas.transform.InverseTransformVector(eventData.delta);
 
         otherConn = GetConnectorOverPointer(eventData);
-
         if(otherConn != null)
         {
             rectTransform.position = otherConn.GetComponent<RectTransform>().position;
@@ -127,21 +126,8 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     void AddConnToOtherSpawner(ConnSpawner spawner)
     { 
         spawner.parentNode.TryAddInputNode(parentNode, spawner.transform.parent.GetComponent<RectTransform>());
-         
-        // Reparent the dragged object to this drop zone
-        spawner.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
+
     }
 
-    //public void OnDrop(PointerEventData eventData)
-    //{
-    //    GameObject dropped = eventData.pointerDrag;
-    //    if (dropped != null && dropped.GetComponent<ConnSpawner>())
-    //    {
-    //        // cannot drop on output, can only draw from input to output 
-    //        if (parentNode.outputNode.parentElement == transform.parent)
-    //            return;
-    //        var otherSpawner = dropped.GetComponent<ConnSpawner>();
-    //        AddConnToOtherSpawner(otherSpawner);
-    //    }
-    //}
+
 }
