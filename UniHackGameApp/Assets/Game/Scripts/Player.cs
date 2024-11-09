@@ -129,7 +129,7 @@ public class Player : MonoBehaviour
         if (IsDead) { return; }
         IsDead = true;
         anim.Play("Die");
-        LevelManager.Instance.ShowLosePanel();
+        LevelManager.Instance.Lose();
     }
 
     private bool IsWallFront()
