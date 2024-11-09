@@ -22,8 +22,7 @@ public class CodingPanelUI : MonoBehaviour
     [SerializeField] Button runButton;
     [SerializeField] Button resetButton;
 
-    [SerializeField] CircuitEvaluator circuitEvaluator;
-
+    CircuitEvaluator circuitEvaluator => CircuitEvaluator.Instance;
     bool isRunning;
 
     void SpawnGate(string gateName, Vector3 position)
@@ -132,5 +131,6 @@ public class CodingPanelUI : MonoBehaviour
         resetButton.onClick.AddListener(OnReset);
 
         UpdateEntries();
+
     }
 }

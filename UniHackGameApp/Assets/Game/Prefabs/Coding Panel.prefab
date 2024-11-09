@@ -895,7 +895,7 @@ MonoBehaviour:
   - {fileID: 4244813917492192063, guid: 7881f592a9590964495953f35c291ca4, type: 3}
   - {fileID: 4244813917492192063, guid: c2ee4f65228f0e74188514a4ddb15a81, type: 3}
   runButton: {fileID: 4283783586698652493}
-  circuitEvaluator: {fileID: 0}
+  resetButton: {fileID: 8564859149864786457}
 --- !u!1 &4178535226762356091
 GameObject:
   m_ObjectHideFlags: 0
