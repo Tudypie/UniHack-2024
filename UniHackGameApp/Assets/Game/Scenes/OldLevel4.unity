@@ -250,11 +250,13 @@ MonoBehaviour:
     value: 1
   - name: wall_front
     value: 0
-  - name: wall_left
-    value: 0
   - name: wall_right
     value: 0
-  - name: trap_front
+  - name: wall_left
+    value: 0
+  - name: is_on_tile_red
+    value: 0
+  - name: stepped_on_tile_red
     value: 0
   outputs:
   - name: move
@@ -428,7 +430,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: enabledGates.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: 'enabledGates.Array.data[0]'
@@ -436,15 +438,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: 'enabledGates.Array.data[1]'
-      value: NOT
+      value: AND
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: 'enabledGates.Array.data[2]'
+      value: NAND
       objectReference: {fileID: 0}
     - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: 'enabledGates.Array.data[3]'
-      value: NAND
+      value: OR
       objectReference: {fileID: 0}
     - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: 'enabledGates.Array.data[4]'
-      value: NAND
+      value: NOR
       objectReference: {fileID: 0}
     - target: {fileID: 3297608002550114287, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_SizeDelta.y
@@ -693,7 +699,7 @@ PrefabInstance:
     - target: {fileID: 2707545552006613343, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: mazePrefab
       value: 
-      objectReference: {fileID: 6122277308968565030, guid: 50fa68915a087d844acd1f84bbc83202, type: 3}
+      objectReference: {fileID: 6122277308968565030, guid: 27539bc62552af84b816ed1deb796007, type: 3}
     - target: {fileID: 3784290913670382377, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

@@ -49,6 +49,7 @@ public class LevelManager : MonoBehaviour
     public void RestartLevel()
     {
         InstantiateMaze();
+        winPanel.gameObject.SetActive(false);
         losePanel.gameObject.SetActive(false);
         CircuitEvaluator.Instance.ResetCircuit();
         onLevelRestart();

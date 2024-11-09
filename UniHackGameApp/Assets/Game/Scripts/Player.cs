@@ -131,7 +131,7 @@ public class Player : MonoBehaviour
 
     public void Attack()
     {
-        Transform enemyInFront = GetObstacleInDirection(LayerMask.GetMask("Enemy"), transform.forward);
+        Transform enemyInFront = GetObstacleInDirection(LayerMask.GetMask("Enemy", "Wall"), LayerMask.GetMask("Enemy"), transform.forward);
         Destroy(enemyInFront.gameObject);
     }
 
@@ -145,33 +145,33 @@ public class Player : MonoBehaviour
 
     private bool IsWallFront()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), transform.forward)) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), LayerMask.GetMask("Wall"), transform.forward)) { return true; }
         return false;
     }
 
     private bool IsWallRight()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), transform.right)) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), LayerMask.GetMask("Wall"), transform.right)) { return true; }
         return false;
     }
 
     private bool IsWallBack()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.forward)) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), LayerMask.GetMask("Wall"), -transform.forward)) { return true; }
         return false;
     }
 
     private bool IsWallLeft()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.right)) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), LayerMask.GetMask("Wall"), -transform.right)) { return true; }
         return false;
     }
 
     private bool IsCheeseAround()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Cheese"), transform.right)
-            || GetObstacleInDirection(LayerMask.GetMask("Cheese"), -transform.forward)
-            || GetObstacleInDirection(LayerMask.GetMask("Cheese"), -transform.right))
+        if (GetObstacleInDirection(LayerMask.GetMask("Cheese", "Wall"), LayerMask.GetMask("Cheese"), transform.right)
+            || GetObstacleInDirection(LayerMask.GetMask("Cheese", "Wall"), LayerMask.GetMask("Cheese"), -transform.forward)
+            || GetObstacleInDirection(LayerMask.GetMask("Cheese", "Wall"), LayerMask.GetMask("Cheese"), -transform.right))
         { 
             return true; 
         }
@@ -180,7 +180,7 @@ public class Player : MonoBehaviour
 
     private bool IsCheeseFront()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Cheese"), transform.forward))
+        if (GetObstacleInDirection(LayerMask.GetMask("Cheese", "Wall"), LayerMask.GetMask("Cheese"), transform.forward))
         {
             return true;
         }
@@ -189,9 +189,9 @@ public class Player : MonoBehaviour
 
     private bool IsTrapAround()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Trap"), transform.right)
-            || GetObstacleInDirection(LayerMask.GetMask("Trap"), -transform.forward)
-            || GetObstacleInDirection(LayerMask.GetMask("Trap"), -transform.right))
+        if (GetObstacleInDirection(LayerMask.GetMask("Trap", "Wall"), LayerMask.GetMask("Trap"), transform.right)
+            || GetObstacleInDirection(LayerMask.GetMask("Trap", "Wall"), LayerMask.GetMask("Trap"), -transform.forward)
+            || GetObstacleInDirection(LayerMask.GetMask("Trap", "Wall"), LayerMask.GetMask("Trap"), -transform.right))
         {
             return true;
         }
@@ -200,17 +200,18 @@ public class Player : MonoBehaviour
 
     private bool IsTrapFront()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Trap"), transform.forward)) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Trap", "Wall"), LayerMask.GetMask("Trap"), transform.forward)) { return true; }
         return false;
     }
 
-    private Transform GetObstacleInDirection(LayerMask layer, Vector3 direction)
+    private Transform GetObstacleInDirection(LayerMask raycastLayer, LayerMask targetLayer, Vector3 direction)
     {
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(mazePosition.x, transform.position.y, mazePosition.y),
-            direction, out hit, 1f, layer))
+            direction, out hit, 1f, raycastLayer))
         {
-            return hit.transform;
+            if ((1<<hit.transform.gameObject.layer) == targetLayer)
+                return hit.transform;
         }
         return null;
     }
