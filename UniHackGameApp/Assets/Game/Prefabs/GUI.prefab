@@ -105,7 +105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnToPos: 0
-  allowDragChildren: 0
+  allowDragChildren: 1
 --- !u!114 &634747786860989683
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,7 +582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnToPos: 0
-  allowDragChildren: 0
+  allowDragChildren: 1
 --- !u!114 &5688141939698809480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1257,13 +1257,7 @@ MonoBehaviour:
   - {fileID: 4244813917492192063, guid: c2ee4f65228f0e74188514a4ddb15a81, type: 3}
   runButton: {fileID: 3717501361176152713}
   resetButton: {fileID: 9095098302500453341}
-  enabledGates:
-  - NAND
-  - XOR
-  - AND
-  - NOT
-  - NOR
-  - OR
+  enabledGates: []
 --- !u!225 &8154200385005944656
 CanvasGroup:
   m_ObjectHideFlags: 0
