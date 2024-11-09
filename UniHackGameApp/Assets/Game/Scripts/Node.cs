@@ -36,7 +36,7 @@ public class Node : MonoBehaviour
 
     [SerializeField] NodeSlot outputSlot;
 
-    Canvas canvas;
+    RectTransform relativeTransform;
 
     List<ConnectorToNode> spawnedConnectors = new();
      
@@ -70,7 +70,7 @@ public class Node : MonoBehaviour
         var outputPos = connToNode.node.outputSlot.parentElement.position;
 
         var dif = outputPos - connToNode.connector.position;
-        var difCanvas = canvas.transform.InverseTransformVector(dif);
+        var difCanvas = relativeTransform.transform.InverseTransformVector(dif);
 
         conn.sizeDelta = new Vector2(difCanvas.magnitude-offset, conn.sizeDelta.y);
         conn.localPosition = difCanvas.normalized * offset;
@@ -133,7 +133,7 @@ public class Node : MonoBehaviour
 
     public virtual void Start()
     {
-        canvas = GetComponentInParent<Canvas>();
+        relativeTransform = GetComponentInParent<CodingPanelUI>().GetComponent<RectTransform>();
         image = GetComponent<Image>();
         UpdateConnectors();
         var text = GetComponentInChildren<TextMeshProUGUI>();

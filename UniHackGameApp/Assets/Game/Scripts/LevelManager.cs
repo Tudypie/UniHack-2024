@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,8 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private GameObject mazePrefab;
     [SerializeField] private Transform losePanel;
     [SerializeField] private Transform winPanel;
+
+    public Action onLevelRestart { get; set; } = () => { };
 
     private GameObject mazeClone;
 
@@ -48,6 +51,7 @@ public class LevelManager : MonoBehaviour
         InstantiateMaze();
         losePanel.gameObject.SetActive(false);
         CircuitEvaluator.Instance.ResetCircuit();
+        onLevelRestart();
     }
 
     public void NextLevel()

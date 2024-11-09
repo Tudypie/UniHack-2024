@@ -11,7 +11,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [SerializeField] GameObject connPrefab;
 
     RectTransform displayConn;
-    Canvas canvas;
+    RectTransform relativeTransform;
     public Node parentNode { get; private set; }    
     
     public Action onDropped { get; set; } = () => { };
@@ -51,13 +51,13 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(canvas == null)
+        if(relativeTransform == null)
         {
-            canvas = GetComponentInParent<Canvas>();
+            relativeTransform = GetComponentInParent<CodingPanelUI>().GetComponent<RectTransform>();
         }
 
         // Move the item along with the mouse pointer
-        movedPos += (Vector2)canvas.transform.InverseTransformVector(eventData.delta);
+        movedPos += (Vector2)relativeTransform.InverseTransformVector(eventData.delta);
 
         otherConn = GetConnectorOverPointer(eventData);
         if(otherConn != null)
@@ -78,7 +78,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         var dif = outputPos - displayConn.transform.position;
         const float offset = -3f;
 
-        var difCanvas = canvas.transform.InverseTransformVector(dif);
+        var difCanvas = relativeTransform.InverseTransformVector(dif);
 
         displayConn.sizeDelta = new Vector2(difCanvas.magnitude - offset, displayConn.sizeDelta.y);
         displayConn.localPosition = difCanvas.normalized * offset;
