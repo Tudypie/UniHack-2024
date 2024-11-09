@@ -1,8 +1,4 @@
-﻿
-using NUnit.Framework;
-using PlasticGui.Configuration.CloudEdition;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
@@ -22,6 +18,8 @@ public class CodingPanelUI : MonoBehaviour
     [SerializeField] Button runButton;
     [SerializeField] Button resetButton;
 
+    [SerializeField] List<string> enabledGates = new List<string> { "NAND", "XOR", "AND", "NOT", "NOR" };
+
     CircuitEvaluator circuitEvaluator => CircuitEvaluator.Instance;
     bool isRunning;
 
@@ -31,7 +29,7 @@ public class CodingPanelUI : MonoBehaviour
         clone.transform.SetParent(transform);
         clone.transform.position = position;
     }
-   
+
     void UpdateOutputs()
     {
         // delete and update old 
@@ -62,12 +60,12 @@ public class CodingPanelUI : MonoBehaviour
     void UpdateInputs()
     {
         // delete and update old 
-        
-        foreach(var node in inputsPanel.GetComponentsInChildren<Node>())
+
+        foreach (var node in inputsPanel.GetComponentsInChildren<Node>())
         {
             var entry = circuitEvaluator.inputs.Find(ent => ent.name == node.name);
 
-            if(circuitEvaluator.inputs.Any(n => n.name == node.name) == false)
+            if (circuitEvaluator.inputs.Any(n => n.name == node.name) == false)
             {
                 Destroy(node.gameObject);
             }
@@ -77,7 +75,7 @@ public class CodingPanelUI : MonoBehaviour
 
         foreach (var entry in circuitEvaluator.inputs)
         {
-            if(inputsPanel.Find(entry.name) == null)
+            if (inputsPanel.Find(entry.name) == null)
             {
                 var clone = Instantiate(inputPrefab);
                 clone.transform.SetParent(inputsPanel);
@@ -117,15 +115,29 @@ public class CodingPanelUI : MonoBehaviour
         }
     }
 
+    void UpdateEnabledGates()
+    {
+        foreach (var but in gatesButtons)
+        {
+            if (enabledGates.Contains(but.name) == false)
+            {
+                but.gameObject.SetActive(false);
+            }
+        }
+    }
+
     void Start()
     {
-        foreach(var but in gatesButtons)
+
+        foreach (var but in gatesButtons)
         {
             but.onDropped += () =>
             {
                 SpawnGate(but.name, but.transform.position);
             };
         }
+
+        UpdateEnabledGates();
 
         runButton.onClick.AddListener(OnRun);
         resetButton.onClick.AddListener(OnReset);
