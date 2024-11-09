@@ -254,7 +254,9 @@ MonoBehaviour:
     value: 0
   - name: wall_left
     value: 0
-  - name: tile_red
+  - name: is_on_tile_red
+    value: 0
+  - name: stepped_on_tile_red
     value: 0
   outputs:
   - name: move
