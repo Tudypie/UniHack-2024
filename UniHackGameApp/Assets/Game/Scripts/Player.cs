@@ -24,47 +24,6 @@ public class Player : MonoBehaviour
 
     public bool IsDead { get; private set; }
 
-    public bool IsWallFront()
-    {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), transform.forward)) { return true; }
-        return false;
-    }
-
-    public bool IsWallRight()
-    {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), transform.right)) { return true; }
-        return false;
-    }
-
-    public bool IsWallBack()
-    {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.forward)) { return true; }
-        return false;
-    }
-
-    public bool IsWallLeft()
-    {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.right)) { return true; }
-        return false;
-    }
-
-    public bool IsTrapFront()
-    {
-        if (GetObstacleInDirection(LayerMask.GetMask("Trap"), transform.forward)) { return true; }
-        return false;
-    }
-
-    public Transform GetObstacleInDirection(LayerMask layer, Vector3 direction)
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(new Vector3(mazePosition.x, transform.position.y, mazePosition.y),
-            direction, out hit, 1f, layer))
-        {
-            return hit.transform;
-        }
-        return null;
-    }
-
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -72,9 +31,16 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        mazeManager = LevelManager.Instance.mazeManager;
         evaluator = CircuitEvaluator.Instance;
         evaluator.onBeforeTick += OnBeforeTick;
         evaluator.onAfterTick += OnAfterTick;
+    }
+
+    private void OnDestroy()
+    {
+        evaluator.onBeforeTick -= OnBeforeTick;
+        evaluator.onAfterTick -= OnAfterTick;
     }
 
     private void OnBeforeTick()
@@ -160,6 +126,47 @@ public class Player : MonoBehaviour
         if (IsDead) { return; }
         IsDead = true;
         anim.Play("Die");
-        GameManager.Instance.ShowLosePanel();
+        LevelManager.Instance.ShowLosePanel();
+    }
+
+    private bool IsWallFront()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), transform.forward)) { return true; }
+        return false;
+    }
+
+    private bool IsWallRight()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), transform.right)) { return true; }
+        return false;
+    }
+
+    private bool IsWallBack()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.forward)) { return true; }
+        return false;
+    }
+
+    private bool IsWallLeft()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.right)) { return true; }
+        return false;
+    }
+
+    private bool IsTrapFront()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Trap"), transform.forward)) { return true; }
+        return false;
+    }
+
+    private Transform GetObstacleInDirection(LayerMask layer, Vector3 direction)
+    {
+        RaycastHit hit;
+        if (Physics.Raycast(new Vector3(mazePosition.x, transform.position.y, mazePosition.y),
+            direction, out hit, 1f, layer))
+        {
+            return hit.transform;
+        }
+        return null;
     }
 }
