@@ -80,6 +80,13 @@ public class CircuitEvaluator : MonoBehaviour
         lastTimeTicked = 0;
     }
 
+    public void PauseCircuit()
+    {
+        if (isRunning == false) return;
+        isRunning = false;
+        lastTimeTicked = 0;
+    }
+
     public void RunCircuit()
     {
         if (isRunning) return;

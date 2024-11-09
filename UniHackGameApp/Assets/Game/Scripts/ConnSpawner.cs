@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField] GameObject connPrefab;
 
@@ -16,6 +16,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     
     public Action onDropped { get; set; } = () => { };
 
+    ConnSpawner otherConn;
     RectTransform rectTransform;
     CanvasGroup canvasGroup;
     Vector2 originalPosition;
@@ -58,7 +59,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         // Move the item along with the mouse pointer
         movedPos += (Vector2)canvas.transform.InverseTransformVector(eventData.delta);
 
-        var otherConn = GetConnectorOverPointer(eventData);
+        otherConn = GetConnectorOverPointer(eventData);
         if(otherConn != null)
         {
             rectTransform.position = otherConn.GetComponent<RectTransform>().position;
@@ -95,6 +96,11 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             Destroy(displayConn.gameObject);
         }
 
+        if (otherConn != null)
+        {
+            AddConnToOtherSpawner(otherConn);
+        }
+
         onDropped();
 
         // Optionally, reset position if not dropped in a valid drop zone
@@ -117,21 +123,11 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         return null;
     }
 
+    void AddConnToOtherSpawner(ConnSpawner spawner)
+    { 
+        spawner.parentNode.TryAddInputNode(parentNode, spawner.transform.parent.GetComponent<RectTransform>());
 
-    public void OnDrop(PointerEventData eventData)
-    {
-        GameObject dropped = eventData.pointerDrag;
-        if (dropped != null && dropped.GetComponent<ConnSpawner>())
-        {
-            // cannot drop on output, can only draw from input to output 
-            if (parentNode.outputNode.parentElement == transform.parent)
-                return;
-            var otherSpawner = dropped.GetComponent<ConnSpawner>();
-
-            parentNode.TryAddInputNode(otherSpawner.parentNode, transform.parent.GetComponent<RectTransform>());
-
-            // Reparent the dragged object to this drop zone
-            dropped.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;
-        }
     }
+
+
 }
