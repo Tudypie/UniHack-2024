@@ -1,10 +1,7 @@
-using Codice.Client.Common.GameUI;
-using NUnit.Framework;
 using System;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 public enum GateType
 {
@@ -24,10 +21,10 @@ public class Gate : Node, IPointerClickHandler
 
     public GateType type
     {
-        get => _type; 
+        get => _type;
         set
         {
-            if(_type == value) return;
+            if (_type == value) return;
             UpdateGateImage();
             _type = value;
         }
@@ -35,7 +32,7 @@ public class Gate : Node, IPointerClickHandler
 
     void UpdateGateImage()
     {
-        image.sprite = gateImages.FirstOrDefault(img => img.name == Enum.GetName(typeof(GateType), type));  
+        image.sprite = gateImages.FirstOrDefault(img => img.name == Enum.GetName(typeof(GateType), type));
     }
 
     public override void UpdateValue()
@@ -45,7 +42,7 @@ public class Gate : Node, IPointerClickHandler
         switch (type)
         {
             case GateType.OR:
-                outValue = inputNodes.Where(nd=>nd.node).Aggregate(false, (acc, input) => acc || input.node.outputValue);
+                outValue = inputNodes.Where(nd => nd.node).Aggregate(false, (acc, input) => acc || input.node.outputValue);
                 break;
             case GateType.NOR:
                 outValue = !inputNodes.Where(nd => nd.node).Aggregate(false, (acc, input) => acc || input.node.outputValue);
@@ -74,12 +71,12 @@ public class Gate : Node, IPointerClickHandler
     public override void Start()
     {
         base.Start();
-        UpdateGateImage();    
+        UpdateGateImage();
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(eventData.button == PointerEventData.InputButton.Right)
+        if (eventData.button == PointerEventData.InputButton.Right)
         {
             Destroy(gameObject);
         }

@@ -1,9 +1,5 @@
-﻿using Codice.Client.BaseCommands;
-using DG.Tweening;
-using GluonGui.WorkspaceWindow.Views;
+﻿using DG.Tweening;
 using System;
-using System.Linq;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,8 +11,8 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     RectTransform displayConn;
     RectTransform relativeTransform;
-    public Node parentNode { get; private set; }    
-    
+    public Node parentNode { get; private set; }
+
     public Action onDropped { get; set; } = () => { };
 
     ConnSpawner otherConn;
@@ -34,7 +30,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         originalPosition = rectTransform.anchoredPosition;
         parentNode = GetComponentInParent<Node>();
         image = GetComponent<Image>();
-    } 
+    }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -46,9 +42,9 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         // Make it so the dragged item is not blocking raycasts (so we can detect the drop area underneath)
         canvasGroup.blocksRaycasts = false;
 
-        if (displayConn) 
+        if (displayConn)
         {
-            Destroy(displayConn.gameObject);  
+            Destroy(displayConn.gameObject);
         }
         displayConn = Instantiate(connPrefab).GetComponent<RectTransform>();
         displayConn.transform.SetParent(transform.parent);
@@ -56,7 +52,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(relativeTransform == null)
+        if (relativeTransform == null)
         {
             relativeTransform = GetComponentInParent<CodingPanelUI>().GetComponent<RectTransform>();
         }
@@ -65,7 +61,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         movedPos += (Vector2)relativeTransform.InverseTransformVector(eventData.delta);
 
         otherConn = GetConnectorOverPointer(eventData);
-        if(otherConn != null)
+        if (otherConn != null)
         {
             rectTransform.position = otherConn.GetComponent<RectTransform>().position;
         }
@@ -129,7 +125,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     void AddConnToOtherSpawner(ConnSpawner spawner)
-    { 
+    {
         spawner.parentNode.TryAddInputNode(parentNode, spawner.transform.parent.GetComponent<RectTransform>());
 
     }
@@ -140,7 +136,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     {
         var col = image.color;
         col.a = .5f;
-        if(colorTween != null)
+        if (colorTween != null)
         {
             colorTween.Kill();
         }

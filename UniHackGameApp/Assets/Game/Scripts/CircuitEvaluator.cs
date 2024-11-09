@@ -1,7 +1,4 @@
-﻿using DG.Tweening;
-using PlasticPipe.PlasticProtocol.Messages;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -86,7 +83,7 @@ public class CircuitEvaluator : MonoBehaviour
     public void ResetAllNodeValues()
     {
         var children = inputsContainer.parent.GetComponentsInChildren<Node>();
-        foreach(var child in children)
+        foreach (var child in children)
         {
             child.ResetColor();
         }
@@ -140,7 +137,7 @@ public class CircuitEvaluator : MonoBehaviour
 
     public bool ReadOutput(string outputName)
     {
-        return outputs.First(ot=>ot.name == outputName).value;
+        return outputs.First(ot => ot.name == outputName).value;
     }
 
     public bool InputExists(string inputName)
@@ -165,7 +162,7 @@ public class CircuitEvaluator : MonoBehaviour
 
     void Update()
     {
-        if(isRunning && lastTimeTicked + tickDuration < Time.time)
+        if (isRunning && lastTimeTicked + tickDuration < Time.time)
         {
             OnTick();
         }

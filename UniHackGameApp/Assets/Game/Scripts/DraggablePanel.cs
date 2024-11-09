@@ -1,8 +1,5 @@
-using Codice.Client.BaseCommands;
-using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
 public class DraggablePanel : MonoBehaviour, IScrollHandler, IDragHandler
