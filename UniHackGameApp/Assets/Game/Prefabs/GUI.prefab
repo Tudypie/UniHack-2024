@@ -1257,7 +1257,13 @@ MonoBehaviour:
   - {fileID: 4244813917492192063, guid: c2ee4f65228f0e74188514a4ddb15a81, type: 3}
   runButton: {fileID: 3717501361176152713}
   resetButton: {fileID: 9095098302500453341}
-  enabledGates: []
+  enabledGates:
+  - XOR
+  - NOR
+  - NOT
+  - AND
+  - OR
+  - NAND
 --- !u!225 &8154200385005944656
 CanvasGroup:
   m_ObjectHideFlags: 0
