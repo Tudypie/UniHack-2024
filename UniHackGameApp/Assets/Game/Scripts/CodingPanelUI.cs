@@ -21,7 +21,8 @@ public class CodingPanelUI : MonoBehaviour
     [SerializeField] List<string> enabledGates = new List<string> { "NAND", "XOR", "AND", "NOT", "NOR" };
 
     CircuitEvaluator circuitEvaluator => CircuitEvaluator.Instance;
-    bool isRunning;
+    bool hasStarted;
+    bool isPaused;
 
     void SpawnGate(string gateName, Vector3 position)
     {
@@ -93,7 +94,7 @@ public class CodingPanelUI : MonoBehaviour
 
     void OnReset()
     {
-        isRunning = false;
+        hasStarted = false;
         circuitEvaluator.ResetCircuit();
         runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
         LevelManager.Instance.RestartLevel();
@@ -101,17 +102,25 @@ public class CodingPanelUI : MonoBehaviour
 
     void OnRun()
     {
-        if (isRunning)
+        if (hasStarted == false)
         {
-            isRunning = false;
-            circuitEvaluator.PauseCircuit();
-            runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
-        }
-        else
-        {
-            isRunning = true;
+            hasStarted = true;
+            isPaused = false;
             circuitEvaluator.RunCircuit();
-            runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Stop";
+            runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Pause";
+        }
+        else if(isPaused && hasStarted)
+        {
+            isPaused = false;
+            circuitEvaluator.RunCircuit();
+            runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Pause";
+        }
+
+        else if(isPaused == false && hasStarted)
+        { 
+            isPaused = true;
+            circuitEvaluator.PauseCircuit();
+            runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Resume";
         }
     }
 
