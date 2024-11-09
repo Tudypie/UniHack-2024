@@ -1,4 +1,6 @@
 using DG.Tweening;
+using System;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -15,28 +17,47 @@ public class Player : MonoBehaviour
     public Direction direction;
 
     [SerializeField] private MazeManager mazeManager;
+    [SerializeField] private CircuitEvaluator evaluator;
 
     private Animator anim;
 
     public bool IsDead { get; private set; }
 
-    public bool IsWallInFront()
+    public bool IsWallFront()
     {
-        if (GetObstacleInFront(LayerMask.GetMask("Wall"))) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), transform.forward)) { return true; }
         return false;
     }
 
-    public bool IsEnemyInFront()
+    public bool IsWallRight()
     {
-        if (GetObstacleInFront(LayerMask.GetMask("Enemy"))) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), transform.right)) { return true; }
         return false;
     }
 
-    public Transform GetObstacleInFront(LayerMask layer)
+    public bool IsWallBack()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.forward)) { return true; }
+        return false;
+    }
+
+    public bool IsWallLeft()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.right)) { return true; }
+        return false;
+    }
+
+    public bool IsTrapFront()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Trap"), transform.forward)) { return true; }
+        return false;
+    }
+
+    public Transform GetObstacleInDirection(LayerMask layer, Vector3 direction)
     {
         RaycastHit hit;
         if (Physics.Raycast(new Vector3(mazePosition.x, transform.position.y, mazePosition.y),
-            transform.forward, out hit, 1f, layer))
+            direction, out hit, 1f, layer))
         {
             return hit.transform;
         }
@@ -48,11 +69,33 @@ public class Player : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    private void Start()
+    {
+        evaluator.onBeforeTick += OnBeforeTick;
+        evaluator.onAfterTick += OnAfterTick;
+    }
+
+    private void OnBeforeTick()
+    {
+        evaluator.SetInput("wall_front", IsWallFront());
+        evaluator.SetInput("wall_right", IsWallRight());
+        evaluator.SetInput("wall_back", IsWallBack());
+        evaluator.SetInput("wall_left", IsWallLeft());
+        evaluator.SetInput("trap_front", IsTrapFront());
+    }
+
+    private void OnAfterTick()
+    {
+        if (evaluator.ReadOutput("move")) { Move(); }
+        if (evaluator.ReadOutput("rotate_right")) { Rotate(1); }
+        if (evaluator.ReadOutput("rotate_left")) { Rotate(-1); }
+    }
+
     private void Update()
     {
         if (IsDead) return;
         if (Input.GetKeyDown(KeyCode.W)) Move();
-        if (Input.GetKeyDown(KeyCode.R)) Rotate();
+        if (Input.GetKeyDown(KeyCode.R)) Rotate(1);
         if (Input.GetKeyDown(KeyCode.Z)) Attack();
     }
 
@@ -72,7 +115,7 @@ public class Player : MonoBehaviour
 
     public void Move()
     {
-        if (IsWallInFront() || IsEnemyInFront()) { return; }
+        if (IsWallFront()) { return; }
 
         Vector2 newMazePos = Vector2.zero;
         switch (direction)
@@ -95,18 +138,17 @@ public class Player : MonoBehaviour
         transform.DOMove(new Vector3(mazePosition.x, transform.position.y, mazePosition.y), 0.5f);
     }
 
-    public void Rotate()
+    public void Rotate(int x)
     {
-        direction++;
+        direction += x;
         if ((int)direction == 4) { direction = 0; }
-        transform.Rotate(0, 90, 0);
+        else if((int)direction == -1) { direction = (Direction)3; }
+        transform.Rotate(0, 90*x, 0);
     }
 
     public void Attack()
     {
-        if (!IsEnemyInFront()) { return; }
-
-        Transform enemyInFront = GetObstacleInFront(LayerMask.GetMask("Enemy"));
+        Transform enemyInFront = GetObstacleInDirection(LayerMask.GetMask("Enemy"), transform.forward);
         Destroy(enemyInFront.gameObject);
     }
 
