@@ -20,6 +20,7 @@ public class CodingPanelUI : MonoBehaviour
     [SerializeField] GameObject[] gatesPrefabs;
 
     [SerializeField] Button runButton;
+    [SerializeField] Button resetButton;
 
     [SerializeField] CircuitEvaluator circuitEvaluator;
 
@@ -92,12 +93,21 @@ public class CodingPanelUI : MonoBehaviour
         UpdateInputs();
     }
 
+
+    void OnReset()
+    {
+        isRunning = false;
+        circuitEvaluator.ResetCircuit();
+        runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
+        
+    }
+
     void OnRun()
     {
         if (isRunning)
         {
             isRunning = false;
-            circuitEvaluator.ResetCircuit();
+            circuitEvaluator.PauseCircuit();
             runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
         }
         else
@@ -119,6 +129,7 @@ public class CodingPanelUI : MonoBehaviour
         }
 
         runButton.onClick.AddListener(OnRun);
+        resetButton.onClick.AddListener(OnReset);
 
         UpdateEntries();
     }
