@@ -426,7 +426,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: enabledGates.Array.size
-      value: 5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: 'enabledGates.Array.data[0]'

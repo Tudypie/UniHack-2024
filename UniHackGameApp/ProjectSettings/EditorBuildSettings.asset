@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/Level01.unity
     guid: ae2735dc67e96034fb7839888c17d370
   - enabled: 1
-    path: Assets/Game/Scenes/MazeTesting.unity
-    guid: 7021cff4019221b41a911ec31ef8eaa7
+    path: Assets/Game/Scenes/Level02.unity
+    guid: 44f41827eb6ad3e4f85ce989b4b9195c
+  - enabled: 1
+    path: Assets/Game/Scenes/Level03.unity
+    guid: 901caf552282cc441a505d2c40783434
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0

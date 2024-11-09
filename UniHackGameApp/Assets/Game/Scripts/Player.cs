@@ -74,7 +74,6 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        print(IsWallRight());
         if (isDead) return;
         if (Input.GetKeyDown(KeyCode.W)) Move();
         if (Input.GetKeyDown(KeyCode.R)) Rotate(1);
