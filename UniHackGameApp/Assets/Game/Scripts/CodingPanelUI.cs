@@ -98,7 +98,7 @@ public class CodingPanelUI : MonoBehaviour
         isRunning = false;
         circuitEvaluator.ResetCircuit();
         runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
-        
+        LevelManager.Instance.RestartLevel();
     }
 
     void OnRun()
