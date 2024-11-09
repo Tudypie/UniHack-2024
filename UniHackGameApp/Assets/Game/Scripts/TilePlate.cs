@@ -5,8 +5,10 @@ public class TilePlate : MonoBehaviour
 {
     [SerializeField] private string inputName;
 
+    [SerializeField] private bool oneTimeTrigger = true;
+
+    [SerializeField, Space] private bool triggeredTile;
     [SerializeField] private bool onTile;
-    [SerializeField] private bool triggeredTile;
 
     private CircuitEvaluator evaluator;
 
@@ -18,7 +20,7 @@ public class TilePlate : MonoBehaviour
 
     private void OnBeforeTick()
     {
-        evaluator.SetInput(inputName, triggeredTile);
+        evaluator.SetInput(inputName, oneTimeTrigger ? triggeredTile : onTile);
     }
 
     private void OnTriggerEnter(Collider other)
