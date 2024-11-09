@@ -1,6 +1,4 @@
 using DG.Tweening;
-using System;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -19,7 +17,10 @@ public class Player : MonoBehaviour
     private CircuitEvaluator evaluator;
     private Animator anim;
 
-    public bool IsDead { get; private set; }
+    [SerializeField] private int ticksSinceCheeseWasEaten = 0;
+
+    [SerializeField] private bool ateCheese = false;
+    private bool isDead = false;
 
     private void Awake()
     {
@@ -50,6 +51,7 @@ public class Player : MonoBehaviour
         evaluator.SetInput("wall_left", IsWallLeft());
         evaluator.SetInput("cheese_around", IsCheeseAround());
         evaluator.SetInput("cheese_front", IsCheeseFront());
+        evaluator.SetInput("ate_cheese", ateCheese);
         evaluator.SetInput("trap_front", IsTrapFront());
     }
 
@@ -58,11 +60,22 @@ public class Player : MonoBehaviour
         if (evaluator.ReadOutput("rotate_right")) { Rotate(1); }
         if (evaluator.ReadOutput("rotate_left")) { Rotate(-1); }
         if (evaluator.ReadOutput("move")) { Move(); }
+
+        if (ateCheese)
+        {
+            ticksSinceCheeseWasEaten++;
+            if (ticksSinceCheeseWasEaten >= 1)
+            {
+                ticksSinceCheeseWasEaten = 0;
+                ateCheese = false;
+            }
+        }
     }
 
     private void Update()
     {
-        if (IsDead) return;
+        print(IsWallRight());
+        if (isDead) return;
         if (Input.GetKeyDown(KeyCode.W)) Move();
         if (Input.GetKeyDown(KeyCode.R)) Rotate(1);
         if (Input.GetKeyDown(KeyCode.Z)) Attack();
@@ -77,6 +90,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("Cheese"))
         {
+            ateCheese = true;
             LevelManager.Instance.mazeManager.CollectCheese();
             Destroy(other.gameObject);
         }
@@ -124,8 +138,8 @@ public class Player : MonoBehaviour
 
     public void Die()
     {
-        if (IsDead) { return; }
-        IsDead = true;
+        if (isDead) { return; }
+        isDead = true;
         anim.Play("Die");
         LevelManager.Instance.Lose();
     }
