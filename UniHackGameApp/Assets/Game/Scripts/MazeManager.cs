@@ -9,5 +9,9 @@ public class MazeManager : MonoBehaviour
     public void CollectCheese()
     {
         collectedCheeses++;
+        if (collectedCheeses >= cheesesToCollect)
+        {
+            LevelManager.Instance.Win();
+        }
     }
 }

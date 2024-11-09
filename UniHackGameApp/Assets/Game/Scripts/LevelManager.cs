@@ -6,6 +6,7 @@ public class LevelManager : MonoBehaviour
 {
     [SerializeField] private GameObject mazePrefab;
     [SerializeField] private Transform losePanel;
+    [SerializeField] private Transform winPanel;
 
     private GameObject mazeClone;
 
@@ -26,11 +27,20 @@ public class LevelManager : MonoBehaviour
         mazeManager = mazeClone.GetComponent<MazeManager>();
     }
 
-    public void ShowLosePanel()
+    public void Lose()
     {
+        CircuitEvaluator.Instance.PauseCircuit();
         losePanel.gameObject.SetActive(true);
         losePanel.localScale = Vector3.zero;
         losePanel.DOScale(1, 1).SetEase(Ease.OutBack).SetDelay(1f);
+    }
+
+    public void Win()
+    {
+        CircuitEvaluator.Instance.PauseCircuit();
+        winPanel.gameObject.SetActive(true);
+        winPanel.localScale = Vector3.zero;
+        winPanel.DOScale(1, 1).SetEase(Ease.OutBack).SetDelay(1f);
     }
 
     public void RestartLevel()
@@ -38,6 +48,11 @@ public class LevelManager : MonoBehaviour
         InstantiateMaze();
         losePanel.gameObject.SetActive(false);
         CircuitEvaluator.Instance.ResetCircuit();
+    }
+
+    public void NextLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
     public void ReturnToMenu()
