@@ -97,7 +97,6 @@ public class CodingPanelUI : MonoBehaviour
         hasStarted = false;
         circuitEvaluator.ResetCircuit();
         runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
-        LevelManager.Instance.RestartLevel();
     }
 
     void OnRun()
@@ -149,8 +148,16 @@ public class CodingPanelUI : MonoBehaviour
         UpdateEnabledGates();
 
         runButton.onClick.AddListener(OnRun);
-        resetButton.onClick.AddListener(OnReset);
-        LevelManager.Instance.onLevelRestart += OnReset;
+        resetButton.onClick.AddListener(() =>
+        {
+            OnReset();
+            LevelManager.Instance.RestartLevel();
+        });
+
+        LevelManager.Instance.onLevelRestart += () => 
+        {
+            OnReset();
+        };
 
         UpdateEntries();
 
