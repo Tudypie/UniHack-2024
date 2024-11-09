@@ -252,7 +252,9 @@ MonoBehaviour:
     value: 0
   - name: wall_right
     value: 0
-  - name: trap_front
+  - name: wall_left
+    value: 0
+  - name: tile_red
     value: 0
   outputs:
   - name: move
@@ -695,7 +697,7 @@ PrefabInstance:
     - target: {fileID: 2707545552006613343, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: mazePrefab
       value: 
-      objectReference: {fileID: 6122277308968565030, guid: 6b4c1dfc0c039a2429aee90737644605, type: 3}
+      objectReference: {fileID: 6122277308968565030, guid: 27539bc62552af84b816ed1deb796007, type: 3}
     - target: {fileID: 3784290913670382377, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
