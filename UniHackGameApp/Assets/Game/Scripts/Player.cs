@@ -17,7 +17,8 @@ public class Player : MonoBehaviour
     public Direction direction;
 
     [SerializeField] private MazeManager mazeManager;
-    [SerializeField] private CircuitEvaluator evaluator;
+
+    private CircuitEvaluator evaluator;
 
     private Animator anim;
 
@@ -71,6 +72,7 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        evaluator = CircuitEvaluator.Instance;
         evaluator.onBeforeTick += OnBeforeTick;
         evaluator.onAfterTick += OnAfterTick;
     }
