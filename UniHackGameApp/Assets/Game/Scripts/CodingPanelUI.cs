@@ -18,6 +18,8 @@ public class CodingPanelUI : MonoBehaviour
     [SerializeField] Button runButton;
     [SerializeField] Button resetButton;
 
+    [SerializeField] Image blockingImage;
+
     [SerializeField] List<string> enabledGates = new List<string> { "NAND", "XOR", "AND", "NOT", "NOR" };
 
     CircuitEvaluator circuitEvaluator => CircuitEvaluator.Instance;
@@ -94,6 +96,7 @@ public class CodingPanelUI : MonoBehaviour
 
     void OnReset()
     {
+        blockingImage.gameObject.SetActive(false);
         hasStarted = false;
         circuitEvaluator.ResetCircuit();
         runButton.GetComponentInChildren<TextMeshProUGUI>().text = "Start";
@@ -103,6 +106,7 @@ public class CodingPanelUI : MonoBehaviour
     {
         if (hasStarted == false)
         {
+            blockingImage.gameObject.SetActive(true);
             hasStarted = true;
             isPaused = false;
             circuitEvaluator.RunCircuit();
