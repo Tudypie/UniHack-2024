@@ -9,17 +9,23 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     [SerializeField] bool returnToPos = true;
     public Action onDropped { get; set; } = () => { };
 
-    private RectTransform rectTransform;
-    private CanvasGroup canvasGroup;
-    private Vector2 originalPosition;
+    RectTransform rectTransform;
+    CanvasGroup canvasGroup;
+    Vector2 originalPosition;
+    Canvas canvas;
 
 
-    private void Awake()
+    void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         originalPosition = rectTransform.anchoredPosition;
     }
+    void Start()
+    {
+        canvas = GetComponentInParent<Canvas>();
+    }
+    
 
     public void OnBeginDrag(PointerEventData eventData)
     {

@@ -1,12 +1,9 @@
-﻿using Codice.Client.Common.GameUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static Node;
 
 public class Node : MonoBehaviour
 {
@@ -26,7 +23,7 @@ public class Node : MonoBehaviour
 
     public IReadOnlyCollection<NodeSlot> inputNodes => _inputSlots;
 
-    public NodeSlot outputNode { get => outputSlot; } 
+    public NodeSlot outputNode { get => outputSlot; }
 
     public bool defaultValue;
     public bool outputValue { get; protected set; }
@@ -40,7 +37,7 @@ public class Node : MonoBehaviour
     [SerializeField] NodeSlot outputSlot;
 
     Canvas canvas;
-    
+
     List<ConnectorToNode> spawnedConnectors = new();
 
     public bool TryAddInputNode(Node node, RectTransform parentElement)
@@ -59,7 +56,7 @@ public class Node : MonoBehaviour
     public void RemoveInputNode(Node node)
     {
         var slot = _inputSlots.Find(sl => sl.node == node);
-        if(slot != null)
+        if (slot != null)
         {
             slot.node = null;
         }
@@ -69,14 +66,15 @@ public class Node : MonoBehaviour
     void UpdateConnectorTransform(ConnectorToNode connToNode)
     {
         var conn = connToNode.connector;
-        conn.localPosition = Vector3.zero;
+        const float offset = -3f;
         var outputPos = connToNode.node.outputSlot.parentElement.position;
 
         var dif = outputPos - connToNode.connector.position;
-        
+        var difCanvas = canvas.transform.InverseTransformVector(dif);
 
-        conn.sizeDelta = new Vector2(canvas.transform.InverseTransformVector(dif).magnitude , conn.sizeDelta.y);
-        conn.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(dif.y, dif.x) * Mathf.Rad2Deg);
+        conn.sizeDelta = new Vector2(difCanvas.magnitude-offset, conn.sizeDelta.y);
+        conn.localPosition = difCanvas.normalized * offset;
+        conn.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(difCanvas.y, difCanvas.x) * Mathf.Rad2Deg);
 
         conn.GetComponent<Image>().color = connToNode.node.outputValue ? Color.yellow : Color.white;
     }
@@ -86,9 +84,9 @@ public class Node : MonoBehaviour
 
         // delete and update old slots 
         List<ConnectorToNode> tbd = new();
-        foreach(var kv in spawnedConnectors)
+        foreach (var kv in spawnedConnectors)
         {
-            if (kv.node && _inputSlots.Any(sl=>sl.node == kv.node))
+            if (kv.node && kv.connector && _inputSlots.Any(sl => sl.node == kv.node))
             {
                 UpdateConnectorTransform(kv);
             }
@@ -98,31 +96,38 @@ public class Node : MonoBehaviour
             }
         }
 
-        foreach(var obj in tbd)
+        foreach (var obj in tbd)
         {
             spawnedConnectors.Remove(obj);
-            Destroy(obj.connector.gameObject);
+            if (obj.connector)
+            {
+                Destroy(obj.connector.gameObject);
+            }
         }
 
         // add new slots 
-        foreach(var slot in _inputSlots)
+        foreach (var slot in _inputSlots)
         {
             if (slot.node == null || spawnedConnectors.Any(conn => conn.node == slot.node))
                 continue;
             var inst = Instantiate(connectorPrefab);
             inst.SetParent(slot.parentElement);
+            inst.GetComponent<Connector>().onDestroy += () =>
+            {
+                slot.node = null;
+            };
             var connToNode = new ConnectorToNode() { node = slot.node, connector = inst };
             spawnedConnectors.Add(connToNode);
             UpdateConnectorTransform(connToNode);
         }
-         
+
     }
-     
+
     public virtual void UpdateValue()
     {
         if (inputNodes.Count == 0)
             outputValue = defaultValue;
-        else 
+        else
             outputValue = inputNodes.Any(slot => slot.node ? slot.node.outputValue : false);
     }
 
@@ -132,7 +137,7 @@ public class Node : MonoBehaviour
         image = GetComponent<Image>();
         UpdateConnectors();
         var text = GetComponentInChildren<TextMeshProUGUI>();
-        if(text != null)
+        if (text != null)
         {
             text.text = transform.name;
         }
