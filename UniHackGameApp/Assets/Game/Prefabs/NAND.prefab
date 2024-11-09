@@ -523,6 +523,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: _inputSlots.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: outputSlot.parentElement
+      value: 
+      objectReference: {fileID: 8652509656602928742}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: inputTransforms.Array.size
       value: 2
       objectReference: {fileID: 0}
@@ -534,6 +542,14 @@ PrefabInstance:
       propertyPath: 'inputTransforms.Array.data[1]'
       value: 
       objectReference: {fileID: 7260171161991175745}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: _inputSlots.Array.data[0].parentElement
+      value: 
+      objectReference: {fileID: 7260171161991175745}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: _inputSlots.Array.data[1].parentElement
+      value: 
+      objectReference: {fileID: 1982007302137808540}
     - target: {fileID: 8185724176100015035, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: m_Sprite
       value: 

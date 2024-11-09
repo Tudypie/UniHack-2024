@@ -1,6 +1,7 @@
 ﻿using Codice.Client.BaseCommands;
 using GluonGui.WorkspaceWindow.Views;
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,7 +11,8 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     [SerializeField] GameObject connPrefab;
 
     RectTransform displayConn;
-
+    public Node parentNode { get; private set; }    
+    
     public Action onDropped { get; set; } = () => { };
 
     private RectTransform rectTransform;
@@ -23,6 +25,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         rectTransform = GetComponent<RectTransform>();
         canvasGroup = GetComponent<CanvasGroup>();
         originalPosition = rectTransform.anchoredPosition;
+        parentNode = GetComponentInParent<Node>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -39,7 +42,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             Destroy(displayConn.gameObject);  
         }
         displayConn = Instantiate(connPrefab).GetComponent<RectTransform>();
-        displayConn.transform.parent = transform.parent;
+        displayConn.transform.SetParent(transform.parent);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -79,12 +82,12 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GameObject dropped = eventData.pointerDrag;
         if (dropped != null && dropped.GetComponent<ConnSpawner>())
         {
-            var node = GetComponentInParent<Node>();
-            
-            if(transform.parent == node.outputTransform)
-            {
+            // cannot drop on output, can only draw from input to output 
+            if (parentNode.outputNode.parentElement == transform.parent)
+                return;
+            var otherSpawner = dropped.GetComponent<ConnSpawner>();
 
-            }
+            parentNode.TryAddInputNode(otherSpawner.parentNode, transform.parent.GetComponent<RectTransform>());
 
             // Reparent the dragged object to this drop zone
             dropped.GetComponent<RectTransform>().anchoredPosition = GetComponent<RectTransform>().anchoredPosition;

@@ -22,10 +22,6 @@ public class Gate : Node, IPointerClickHandler
 
     [SerializeField] GateType _type;
 
-    [SerializeField] RectTransform outPutTransform;
-
-    public override RectTransform outputTransform => outPutTransform; 
-
     public GateType type
     {
         get => _type; 
@@ -49,26 +45,26 @@ public class Gate : Node, IPointerClickHandler
         switch (type)
         {
             case GateType.OR:
-                outValue = inputs.Aggregate(false, (acc, input) => acc || input.outputValue);
+                outValue = inputNodes.Where(nd=>nd.node).Aggregate(false, (acc, input) => acc || input.node.outputValue);
                 break;
             case GateType.NOR:
-                outValue = !inputs.Aggregate(false, (acc, input) => acc || input.outputValue);
+                outValue = !inputNodes.Where(nd => nd.node).Aggregate(false, (acc, input) => acc || input.node.outputValue);
                 break;
 
             case GateType.AND:
-                outValue = inputs.Aggregate(true, (acc, input) => acc && input.outputValue);
+                outValue = inputNodes.Where(nd => nd.node).Aggregate(true, (acc, input) => acc && input.node.outputValue);
                 break;
 
             case GateType.NAND:
-                outValue = !inputs.Aggregate(true, (acc, input) => acc && input.outputValue);
+                outValue = !inputNodes.Where(nd => nd.node).Aggregate(true, (acc, input) => acc && input.node.outputValue);
                 break;
 
             case GateType.XOR:
-                outValue = inputs.Aggregate(false, (acc, input) => acc ^ input.outputValue);
+                outValue = inputNodes.Where(nd => nd.node).Aggregate(false, (acc, input) => acc ^ input.node.outputValue);
                 break;
 
             case GateType.NOT:
-                outValue = !inputs.Aggregate(false, (acc, input) => acc || input.outputValue);
+                outValue = !inputNodes.Where(nd => nd.node).Aggregate(false, (acc, input) => acc || input.node.outputValue);
                 break;
         }
 

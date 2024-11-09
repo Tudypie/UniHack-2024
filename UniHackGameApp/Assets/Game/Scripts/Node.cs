@@ -1,41 +1,66 @@
 ﻿using Codice.Client.Common.GameUI;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static Node;
 
 public class Node : MonoBehaviour
 {
-    [SerializeField] RectTransform connectorPrefab;
+    [Serializable]
+    public class NodeSlot
+    {
+        public Node node;
+        public RectTransform parentElement;
+    }
 
-    [SerializeField] List<Node> _inputs = new();
-    [SerializeField] RectTransform[] inputTransforms;
-    
-    public virtual RectTransform outputTransform => GetComponent<RectTransform>();
-    public IReadOnlyCollection<Node> inputs => _inputs;
-
-    public bool defaultValue;
-    public bool outputValue { get; protected set; }
-
-    protected Image image;
-
+    [Serializable]
     public class ConnectorToNode
     {
         public RectTransform connector;
         public Node node;
     }
 
-    List<ConnectorToNode> connectorToNode = new();
+    public IReadOnlyCollection<NodeSlot> inputNodes => _inputSlots;
 
-    public void AddInputNode()
+    public NodeSlot outputNode { get => outputSlot; } 
+
+    public bool defaultValue;
+    public bool outputValue { get; protected set; }
+
+    protected Image image;
+
+    [SerializeField] RectTransform connectorPrefab;
+
+    [SerializeField] List<NodeSlot> _inputSlots = new();
+
+    [SerializeField] NodeSlot outputSlot;
+    
+    List<ConnectorToNode> spawnedConnectors = new();
+
+    public bool TryAddInputNode(Node node, RectTransform parentElement)
     {
+        var slot = _inputSlots.FirstOrDefault(slot => slot.parentElement == parentElement);
+
+        if (slot == null)
+            return false;
+
+        slot.node = node;
+
         UpdateConnectors();
+        return true;
     }
 
-    public void RemoveInputNode()
+    public void RemoveInputNode(Node node)
     {
+        var slot = _inputSlots.Find(sl => sl.node == node);
+        if(slot != null)
+        {
+            slot.node = null;
+        }
         UpdateConnectors();
     }
 
@@ -43,7 +68,7 @@ public class Node : MonoBehaviour
     {
         var conn = connToNode.connector;
         conn.localPosition = Vector3.zero;
-        var outputPos = connToNode.node.outputTransform.position;
+        var outputPos = connToNode.node.outputSlot.parentElement.position;
 
         var dif = outputPos - connToNode.connector.position;
 
@@ -55,10 +80,12 @@ public class Node : MonoBehaviour
 
     void UpdateConnectors()
     {
+
+        // delete and update old slots 
         List<ConnectorToNode> tbd = new();
-        foreach(var kv in connectorToNode)
+        foreach(var kv in spawnedConnectors)
         {
-            if (kv.node && inputs.Contains(kv.node))
+            if (kv.node && _inputSlots.Any(sl=>sl.node == kv.node))
             {
                 UpdateConnectorTransform(kv);
             }
@@ -70,37 +97,30 @@ public class Node : MonoBehaviour
 
         foreach(var obj in tbd)
         {
-            connectorToNode.Remove(obj);
+            spawnedConnectors.Remove(obj);
             Destroy(obj.connector.gameObject);
         }
 
-        for(int i=0;i<inputs.Count;i++)
+        // add new slots 
+        foreach(var slot in _inputSlots)
         {
-            if (_inputs[i] && connectorToNode.Any(conn => conn.node == _inputs[i]) == false)
-            {
-                var inst = Instantiate(connectorPrefab);
-                if(i < inputTransforms.Length)
-                {
-                    inst.parent = inputTransforms[i]; 
-                } 
-                else
-                {
-                    inst.parent = transform;
-                }
-                var connToNode = new ConnectorToNode() { node = _inputs[i], connector = inst };
-                connectorToNode.Add(connToNode);
-                UpdateConnectorTransform(connToNode);
-            }
+            if (slot.node == null || spawnedConnectors.Any(conn => conn.node == slot.node))
+                continue;
+            var inst = Instantiate(connectorPrefab);
+            inst.SetParent(slot.parentElement);
+            var connToNode = new ConnectorToNode() { node = slot.node, connector = inst };
+            spawnedConnectors.Add(connToNode);
+            UpdateConnectorTransform(connToNode);
         }
          
     }
      
     public virtual void UpdateValue()
     {
-        if (inputs.Count == 0)
+        if (inputNodes.Count == 0)
             outputValue = defaultValue;
         else 
-            outputValue = inputs.Any(node => node.outputValue);
+            outputValue = inputNodes.Any(slot => slot.node ? slot.node.outputValue : false);
     }
 
     public virtual void Start()

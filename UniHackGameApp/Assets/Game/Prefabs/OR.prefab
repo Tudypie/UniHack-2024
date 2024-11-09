@@ -307,7 +307,19 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: connectorPrefab
+      value: 
+      objectReference: {fileID: 5978604673101439055, guid: a2d087194cd941d478ae08a245e5467c, type: 3}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: outPutTransform
+      value: 
+      objectReference: {fileID: 8652509656602928742}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: _inputSlots.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: outputSlot.parentElement
       value: 
       objectReference: {fileID: 8652509656602928742}
     - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
@@ -322,6 +334,14 @@ PrefabInstance:
       propertyPath: 'inputTransforms.Array.data[1]'
       value: 
       objectReference: {fileID: 7260171161991175745}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: _inputSlots.Array.data[0].parentElement
+      value: 
+      objectReference: {fileID: 7260171161991175745}
+    - target: {fileID: 7993800280446682741, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
+      propertyPath: _inputSlots.Array.data[1].parentElement
+      value: 
+      objectReference: {fileID: 1982007302137808540}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:

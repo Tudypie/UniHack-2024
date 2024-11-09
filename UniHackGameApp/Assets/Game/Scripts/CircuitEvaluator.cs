@@ -1,12 +1,34 @@
-﻿using System.Collections;
+﻿using PlasticPipe.PlasticProtocol.Messages;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class CircuitEvaluator : MonoBehaviour
 {
-    [SerializeField] List<Node> outNodes;
-    public void UpdateCircuit(List<Node> outNodes)
+    public Action onBeforeTick = () => { };
+    public Action onAfterTick = () => { };
+
+    [Serializable]
+    public class Entry
+    {
+        public string name;
+        public bool value;
+    }
+
+    public List<Entry> inputs = new();
+    public List<Entry> outputs = new();
+
+    [SerializeField] float tickDuration = 1f;
+
+    [SerializeField] Transform outputsContainer;
+    [SerializeField] Transform inputsContainer;
+
+    float lastTimeTicked;
+    bool isRunning;
+
+    public void UpdateCircuit(Node[] outNodes)
     {
         HashSet<Node> visited = new();
         Stack<Node> sortedNodes = new();
@@ -28,14 +50,15 @@ public class CircuitEvaluator : MonoBehaviour
 
     void TopologicalSort(Node node, HashSet<Node> visited, Stack<Node> sortedNodes)
     {
+
         visited.Add(node);
 
         // Visit all input dependencies (neighbor nodes)
-        foreach (var inputNode in node.inputs)
+        foreach (var inputNode in node.inputNodes)
         {
-            if (!visited.Contains(inputNode))
+            if (inputNode.node && !visited.Contains(inputNode.node))  
             {
-                TopologicalSort(inputNode, visited, sortedNodes);
+                TopologicalSort(inputNode.node, visited, sortedNodes);
             }
         }
 
@@ -43,9 +66,59 @@ public class CircuitEvaluator : MonoBehaviour
         sortedNodes.Push(node);
     }
 
-    IEnumerator Start()
+    public void ResetCircuit()
     {
-        yield return new WaitForSeconds(2);
-        UpdateCircuit(outNodes);
+        if (isRunning == false) return;
+        isRunning = false;
+        lastTimeTicked = 0;
+    }
+
+    public void RunCircuit()
+    {
+        if (isRunning) return;
+        isRunning = true;
+        UpdateCircuit(outputsContainer.GetComponentsInChildren<Node>());
+    }
+
+    void UpdateInputs()
+    {
+        foreach(var input in inputsContainer.GetComponentsInChildren<Node>())
+        {
+            var entry = inputs.Find(ip => ip.name == input.name);
+            if (entry != null)
+            {
+                input.defaultValue = entry.value; 
+            }
+        }
+    }
+
+    void UpdateOutputs()
+    {
+        foreach (var output in outputsContainer.GetComponentsInChildren<Node>())
+        {
+            var entry = outputs.Find(op => op.name == output.name);
+            if (entry != null)
+            {
+                entry.value = output.outputValue;
+            }
+        }
+    }
+
+    void OnTick()
+    {
+        lastTimeTicked = Time.time;
+        onBeforeTick();
+        UpdateInputs();
+        UpdateCircuit(outputsContainer.GetComponentsInChildren<Node>());
+        UpdateOutputs();
+        onAfterTick();
+    }
+
+    void Update()
+    {
+        if(isRunning && lastTimeTicked + tickDuration < Time.time)
+        {
+            OnTick();
+        }
     }
 }
