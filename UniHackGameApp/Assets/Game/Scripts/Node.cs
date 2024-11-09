@@ -38,6 +38,8 @@ public class Node : MonoBehaviour
     [SerializeField] List<NodeSlot> _inputSlots = new();
 
     [SerializeField] NodeSlot outputSlot;
+
+    Canvas canvas;
     
     List<ConnectorToNode> spawnedConnectors = new();
 
@@ -71,8 +73,9 @@ public class Node : MonoBehaviour
         var outputPos = connToNode.node.outputSlot.parentElement.position;
 
         var dif = outputPos - connToNode.connector.position;
+        
 
-        conn.sizeDelta = new Vector2(dif.magnitude , conn.sizeDelta.y);
+        conn.sizeDelta = new Vector2(canvas.transform.InverseTransformVector(dif).magnitude , conn.sizeDelta.y);
         conn.transform.localRotation = Quaternion.Euler(0, 0, Mathf.Atan2(dif.y, dif.x) * Mathf.Rad2Deg);
 
         conn.GetComponent<Image>().color = connToNode.node.outputValue ? Color.yellow : Color.white;
@@ -125,6 +128,7 @@ public class Node : MonoBehaviour
 
     public virtual void Start()
     {
+        canvas = GetComponentInParent<Canvas>();
         image = GetComponent<Image>();
         UpdateConnectors();
         var text = GetComponentInChildren<TextMeshProUGUI>();

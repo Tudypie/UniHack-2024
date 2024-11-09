@@ -15,7 +15,6 @@ public class GameManager : MonoBehaviour
 
     public void ShowLosePanel()
     {
-        print("a");
         losePanel.gameObject.SetActive(true);
         losePanel.localScale = Vector3.zero;
         losePanel.DOScale(1, 1).SetEase(Ease.OutBack).SetDelay(1f);

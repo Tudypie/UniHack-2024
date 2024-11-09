@@ -42,7 +42,7 @@ public class CircuitEvaluator : MonoBehaviour
             }
         }
 
-        foreach(var node in sortedNodes.Reverse())
+        foreach (var node in sortedNodes.Reverse())
         {
             node.UpdateValue();
         }
@@ -56,7 +56,7 @@ public class CircuitEvaluator : MonoBehaviour
         // Visit all input dependencies (neighbor nodes)
         foreach (var inputNode in node.inputNodes)
         {
-            if (inputNode.node && !visited.Contains(inputNode.node))  
+            if (inputNode.node && !visited.Contains(inputNode.node))
             {
                 TopologicalSort(inputNode.node, visited, sortedNodes);
             }
@@ -82,12 +82,12 @@ public class CircuitEvaluator : MonoBehaviour
 
     void UpdateInputs()
     {
-        foreach(var input in inputsContainer.GetComponentsInChildren<Node>())
+        foreach (var input in inputsContainer.GetComponentsInChildren<Node>())
         {
             var entry = inputs.Find(ip => ip.name == input.name);
             if (entry != null)
             {
-                input.defaultValue = entry.value; 
+                input.defaultValue = entry.value;
             }
         }
     }
@@ -102,6 +102,16 @@ public class CircuitEvaluator : MonoBehaviour
                 entry.value = output.outputValue;
             }
         }
+    }
+
+    public void SetInput(string inputName, bool value)
+    {
+        inputs.First(ot => ot.name == inputName).value = value;
+    }
+
+    public bool ReadOutput(string outputName)
+    {
+        return outputs.First(ot=>ot.name == outputName).value;
     }
 
     void OnTick()
