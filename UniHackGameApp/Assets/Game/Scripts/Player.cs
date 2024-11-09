@@ -138,6 +138,7 @@ public class Player : MonoBehaviour
         }
         mazePosition = newMazePos;
         transform.DOMove(new Vector3(mazePosition.x, transform.position.y, mazePosition.y), 0.5f);
+        anim.Play("Walk");
     }
 
     public void Rotate(int x)
