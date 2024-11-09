@@ -250,11 +250,11 @@ MonoBehaviour:
     value: 1
   - name: wall_front
     value: 0
-  - name: wall_right
+  - name: cheese_around
     value: 0
-  - name: wall_back
+  - name: cheese_front
     value: 0
-  - name: wall_left
+  - name: trap_around
     value: 0
   - name: trap_front
     value: 0
@@ -773,7 +773,7 @@ PrefabInstance:
     - target: {fileID: 2707545552006613343, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: mazePrefab
       value: 
-      objectReference: {fileID: 6122277308968565030, guid: 52459b8267b737948b558dc31426bdee, type: 3}
+      objectReference: {fileID: 6122277308968565030, guid: 4fc3ad4fe16aa464d931d80079d1922d, type: 3}
     - target: {fileID: 3784290913670382377, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
