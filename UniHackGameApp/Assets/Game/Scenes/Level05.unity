@@ -254,7 +254,15 @@ MonoBehaviour:
     value: 0
   - name: wall_right
     value: 0
+  - name: wall_back
+    value: 0
   - name: trap_front
+    value: 0
+  - name: cheese_near
+    value: 0
+  - name: on_red
+    value: 0
+  - name: cheese_front
     value: 0
   outputs:
   - name: move
@@ -318,7 +326,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.554717, g: 0.554717, b: 0.554717, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -341,7 +349,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 25
+  field of view: 20
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -368,7 +376,7 @@ Transform:
   m_GameObject: {fileID: 1099584122}
   serializedVersion: 2
   m_LocalRotation: {x: 0.35355338, y: 0.35355338, z: -0.1464466, w: 0.8535535}
-  m_LocalPosition: {x: -2.92, y: 9.72, z: -7.49}
+  m_LocalPosition: {x: -6.16, y: 14.68, z: -10.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -425,26 +433,6 @@ PrefabInstance:
     - target: {fileID: 2364085579770589328, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
-      propertyPath: enabledGates.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
-      propertyPath: 'enabledGates.Array.data[0]'
-      value: NOT
-      objectReference: {fileID: 0}
-    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
-      propertyPath: 'enabledGates.Array.data[1]'
-      value: NOT
-      objectReference: {fileID: 0}
-    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
-      propertyPath: 'enabledGates.Array.data[3]'
-      value: NAND
-      objectReference: {fileID: 0}
-    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
-      propertyPath: 'enabledGates.Array.data[4]'
-      value: NAND
       objectReference: {fileID: 0}
     - target: {fileID: 3297608002550114287, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_SizeDelta.y
