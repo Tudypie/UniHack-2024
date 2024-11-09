@@ -254,6 +254,8 @@ MonoBehaviour:
     value: 0
   - name: wall_right
     value: 0
+  - name: trap_front
+    value: 0
   outputs:
   - name: move
     value: 0
