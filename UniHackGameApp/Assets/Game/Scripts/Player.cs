@@ -18,6 +18,10 @@ public class Player : MonoBehaviour
     private Animator anim;
 
     [SerializeField] private int ticksSinceCheeseWasEaten = 0;
+    [SerializeField] AudioSource audioMove;
+    [SerializeField] AudioSource audioDie;
+    [SerializeField] AudioSource audioBearTrap;
+    [SerializeField] AudioSource audioEat;
 
     [SerializeField] private bool ateCheese = false;
     private bool isDead = false;
@@ -59,7 +63,7 @@ public class Player : MonoBehaviour
     {
         if (evaluator.ReadOutput("rotate_right")) { Rotate(1); }
         if (evaluator.ReadOutput("rotate_left")) { Rotate(-1); }
-        if (evaluator.ReadOutput("move")) { Move(); }
+        if (evaluator.ReadOutput("move")) { Move(); audioMove.Play(); }
 
         if (ateCheese)
         {
@@ -89,6 +93,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("Cheese"))
         {
+            audioEat.Play();
             ateCheese = true;
             LevelManager.Instance.mazeManager.CollectCheese();
             Destroy(other.gameObject);
@@ -138,6 +143,8 @@ public class Player : MonoBehaviour
     public void Die()
     {
         if (isDead) { return; }
+        audioDie.Play();
+        audioBearTrap.Play();
         isDead = true;
         anim.Play("Die");
         LevelManager.Instance.Lose();
