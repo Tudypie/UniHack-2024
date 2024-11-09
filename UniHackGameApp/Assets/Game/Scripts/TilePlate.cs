@@ -5,7 +5,7 @@ public class TilePlate : MonoBehaviour
 {
     [SerializeField] private string inputName;
 
-    private bool playerOnPlate;
+    [SerializeField] private bool playerOnPlate;
 
     private CircuitEvaluator evaluator;
 
