@@ -1,12 +1,15 @@
 ﻿using Codice.Client.BaseCommands;
+using DG.Tweening;
 using GluonGui.WorkspaceWindow.Views;
 using System;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] GameObject connPrefab;
 
@@ -19,6 +22,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     ConnSpawner otherConn;
     RectTransform rectTransform;
     CanvasGroup canvasGroup;
+    Image image;
     Vector2 originalPosition;
     Vector2 movedPos;
 
@@ -29,6 +33,7 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         canvasGroup = GetComponent<CanvasGroup>();
         originalPosition = rectTransform.anchoredPosition;
         parentNode = GetComponentInParent<Node>();
+        image = GetComponent<Image>();
     } 
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -129,5 +134,33 @@ public class ConnSpawner : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
     }
 
+    Tween colorTween;
 
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        var col = image.color;
+        col.a = .5f;
+        if(colorTween != null)
+        {
+            colorTween.Kill();
+        }
+        colorTween = DOVirtual.Color(image.color, col, .2f, x =>
+        {
+            image.color = x;
+        });
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        var col = image.color;
+        col.a = 0;
+        if (colorTween != null)
+        {
+            colorTween.Kill();
+        }
+        colorTween = DOVirtual.Color(image.color, col, .2f, x =>
+        {
+            image.color = x;
+        });
+    }
 }
