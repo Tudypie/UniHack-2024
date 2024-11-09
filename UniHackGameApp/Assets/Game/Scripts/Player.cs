@@ -16,10 +16,7 @@ public class Player : MonoBehaviour
     public Vector2 mazePosition;
     public Direction direction;
 
-    [SerializeField] private MazeManager mazeManager;
-
     private CircuitEvaluator evaluator;
-
     private Animator anim;
 
     public bool IsDead { get; private set; }
@@ -31,7 +28,6 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        mazeManager = LevelManager.Instance.mazeManager;
         evaluator = CircuitEvaluator.Instance;
         evaluator.onBeforeTick += OnBeforeTick;
         evaluator.onAfterTick += OnAfterTick;
@@ -52,14 +48,16 @@ public class Player : MonoBehaviour
         evaluator.SetInput("wall_right", IsWallRight());
         evaluator.SetInput("wall_back", IsWallBack());
         evaluator.SetInput("wall_left", IsWallLeft());
+        evaluator.SetInput("cheese_around", IsCheeseAround());
+        evaluator.SetInput("cheese_front", IsCheeseFront());
         evaluator.SetInput("trap_front", IsTrapFront());
     }
 
     private void OnAfterTick()
     {
-        if (evaluator.ReadOutput("move")) { Move(); }
         if (evaluator.ReadOutput("rotate_right")) { Rotate(1); }
         if (evaluator.ReadOutput("rotate_left")) { Rotate(-1); }
+        if (evaluator.ReadOutput("move")) { Move(); }
     }
 
     private void Update()
@@ -79,7 +77,7 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("Cheese"))
         {
-            mazeManager.CollectCheese();
+            LevelManager.Instance.mazeManager.CollectCheese();
             Destroy(other.gameObject);
         }
     }
@@ -153,6 +151,37 @@ public class Player : MonoBehaviour
     private bool IsWallLeft()
     {
         if (GetObstacleInDirection(LayerMask.GetMask("Wall"), -transform.right)) { return true; }
+        return false;
+    }
+
+    private bool IsCheeseAround()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Cheese"), transform.right)
+            || GetObstacleInDirection(LayerMask.GetMask("Cheese"), -transform.forward)
+            || GetObstacleInDirection(LayerMask.GetMask("Cheese"), -transform.right))
+        { 
+            return true; 
+        }
+        return false;
+    }
+
+    private bool IsCheeseFront()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Cheese"), transform.forward))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    private bool IsTrapAround()
+    {
+        if (GetObstacleInDirection(LayerMask.GetMask("Trap"), transform.right)
+            || GetObstacleInDirection(LayerMask.GetMask("Trap"), -transform.forward)
+            || GetObstacleInDirection(LayerMask.GetMask("Trap"), -transform.right))
+        {
+            return true;
+        }
         return false;
     }
 
