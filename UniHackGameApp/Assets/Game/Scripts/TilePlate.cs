@@ -5,8 +5,8 @@ public class TilePlate : MonoBehaviour
 {
     [SerializeField] private string inputName;
 
-    [SerializeField] private bool playerIsOnPlate;
-    [SerializeField] private bool playerSteppedOnPlate;
+    [SerializeField] private bool onTile;
+    [SerializeField] private bool triggeredTile;
 
     private CircuitEvaluator evaluator;
 
@@ -18,16 +18,15 @@ public class TilePlate : MonoBehaviour
 
     private void OnBeforeTick()
     {
-        evaluator.SetInput("is_on_" + inputName, playerIsOnPlate);
-        evaluator.SetInput("stepped_on_" + inputName, playerSteppedOnPlate);
+        evaluator.SetInput(inputName, triggeredTile);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsOnPlate = true;
-            playerSteppedOnPlate = true;
+            triggeredTile = true;
+            onTile = true;
         }
     }
 
@@ -35,7 +34,7 @@ public class TilePlate : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            playerIsOnPlate = false;
+            onTile = false;   
         }
     }
 }
