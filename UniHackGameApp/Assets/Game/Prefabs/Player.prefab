@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4525711113992186056}
   m_Layer: 3
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mazePosition: {x: 0, y: 0}
   direction: 0
+  mazeManager: {fileID: 0}
 --- !u!1001 &3237464900902434818
 PrefabInstance:
   m_ObjectHideFlags: 0

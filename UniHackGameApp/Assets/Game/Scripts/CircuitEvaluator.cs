@@ -28,6 +28,13 @@ public class CircuitEvaluator : MonoBehaviour
     float lastTimeTicked;
     bool isRunning;
 
+    public static CircuitEvaluator Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     public void UpdateCircuit(Node[] outNodes)
     {
         HashSet<Node> visited = new();
