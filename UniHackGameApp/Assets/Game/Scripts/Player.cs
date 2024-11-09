@@ -39,8 +39,11 @@ public class Player : MonoBehaviour
 
     private void OnDestroy()
     {
-        evaluator.onBeforeTick -= OnBeforeTick;
-        evaluator.onAfterTick -= OnAfterTick;
+        if (evaluator)
+        {
+            evaluator.onBeforeTick -= OnBeforeTick;
+            evaluator.onAfterTick -= OnAfterTick;
+        }
     }
 
     private void OnBeforeTick()

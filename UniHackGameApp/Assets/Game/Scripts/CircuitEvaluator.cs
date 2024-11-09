@@ -78,6 +78,7 @@ public class CircuitEvaluator : MonoBehaviour
         if (isRunning == false) return;
         isRunning = false;
         lastTimeTicked = 0;
+        LevelManager.Instance.RestartLevel();
     }
 
     public void PauseCircuit()
