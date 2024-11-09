@@ -254,10 +254,6 @@ MonoBehaviour:
     value: 0
   - name: wall_right
     value: 0
-  - name: cheese_near
-    value: 0
-  - name: cheese_front
-    value: 0
   outputs:
   - name: move
     value: 0
@@ -427,6 +423,26 @@ PrefabInstance:
     - target: {fileID: 2364085579770589328, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: enabledGates.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: 'enabledGates.Array.data[0]'
+      value: NOT
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: 'enabledGates.Array.data[1]'
+      value: NOT
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: 'enabledGates.Array.data[3]'
+      value: NAND
+      objectReference: {fileID: 0}
+    - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: 'enabledGates.Array.data[4]'
+      value: NAND
       objectReference: {fileID: 0}
     - target: {fileID: 3297608002550114287, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_SizeDelta.y
