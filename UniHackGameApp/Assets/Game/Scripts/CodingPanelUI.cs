@@ -150,6 +150,7 @@ public class CodingPanelUI : MonoBehaviour
 
         runButton.onClick.AddListener(OnRun);
         resetButton.onClick.AddListener(OnReset);
+        LevelManager.Instance.onLevelRestart += OnReset;
 
         UpdateEntries();
 
