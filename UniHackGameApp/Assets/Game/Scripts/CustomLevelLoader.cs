@@ -7,6 +7,7 @@ public class CustomLevelLoader : MonoBehaviour
     [SerializeField] GameObject tilePrefab;
     [SerializeField] GameObject playerPrefab;
 
+
     private void Start()
     {
         if(TileEditorUI.lastSaved != null)
@@ -28,6 +29,8 @@ public class CustomLevelLoader : MonoBehaviour
         player.GetComponent<Player>().LoadData(levelData.player);
 
         mazeParent.GetComponent<MazeManager>().cheesesToCollect = levelData.cheeseWin;
+
+        
 
         LevelManager.Instance.SetCustomMazePrefab(mazeParent.gameObject);
     }
