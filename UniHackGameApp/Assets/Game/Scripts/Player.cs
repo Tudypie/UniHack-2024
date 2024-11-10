@@ -40,6 +40,27 @@ public class Player : MonoBehaviour
         }
 
         mazePosition = new Vector2(transform.position.x, transform.position.z);
+        direction = GetCurrentDirection();
+    }
+
+    Direction GetCurrentDirection()
+    {
+        if(transform.forward == Vector3.forward)
+        {
+            return Direction.Front;
+        }
+        else if(transform.forward == Vector3.right)
+        {
+            return Direction.Right;
+        }
+        else if (transform.forward == Vector3.back)
+        {
+            return Direction.Back;
+        }
+        else 
+        {
+            return Direction.Left;
+        }
     }
 
     private void OnDestroy()

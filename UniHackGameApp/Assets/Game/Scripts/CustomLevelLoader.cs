@@ -44,6 +44,8 @@ public class CustomLevelLoader : MonoBehaviour
 
         mazeParent.GetComponent<MazeManager>().cheesesToCollect = levelData.cheeseWin;
 
+        
+
         LevelManager.Instance.SetCustomMazePrefab(mazeParent.gameObject);
     }
 
