@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     private CircuitEvaluator evaluator;
     private Animator anim;
 
+    Vector3 debugRayOirigin;
+    Vector3 debugRayDir;
+
     [SerializeField] AudioSource audioMove;
     [SerializeField] AudioSource audioDie;
     [SerializeField] AudioSource audioBearTrap;
@@ -250,6 +253,8 @@ public class Player : MonoBehaviour
     private Transform GetObstacleInDirection(LayerMask raycastLayer, LayerMask targetLayer, Vector3 direction)
     {
         RaycastHit hit;
+        debugRayDir = direction;
+        debugRayOirigin = new Vector3(mazePosition.x, transform.position.y, mazePosition.y);
         if (Physics.Raycast(new Vector3(mazePosition.x, transform.position.y, mazePosition.y),
             direction, out hit, 1f, raycastLayer))
         {
@@ -257,5 +262,11 @@ public class Player : MonoBehaviour
                 return hit.transform;
         }
         return null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(debugRayOirigin, debugRayDir); 
     }
 }

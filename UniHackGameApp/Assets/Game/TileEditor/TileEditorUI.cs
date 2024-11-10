@@ -225,6 +225,7 @@ public class TileEditorUI : MonoBehaviour
                             player = Instantiate(selectedPrefab.prefab).GetComponent<Player>();
                             player.enabled = false;
                         }
+                        p.y = .14f;
                         player.transform.position = p;
                     }
                     else if(selectedPrefab.button.name == "Plate")
