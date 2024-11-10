@@ -17,13 +17,12 @@ public class Player : MonoBehaviour
     private CircuitEvaluator evaluator;
     private Animator anim;
 
-    [SerializeField] private int ticksSinceCheeseWasEaten = 0;
     [SerializeField] AudioSource audioMove;
     [SerializeField] AudioSource audioDie;
     [SerializeField] AudioSource audioBearTrap;
     [SerializeField] AudioSource audioEat;
 
-    [SerializeField] private bool ateCheese = false;
+    [SerializeField] private bool ateOneCheese = false;
     private bool isDead = false;
 
     private void Awake()
@@ -81,7 +80,7 @@ public class Player : MonoBehaviour
         evaluator.SetInput("wall_left", IsWallLeft());
         evaluator.SetInput("cheese_near", IsCheeseAround());
         evaluator.SetInput("cheese_front", IsCheeseFront());
-        evaluator.SetInput("ate_cheese", ateCheese);
+        evaluator.SetInput("ate_1_cheese", ateOneCheese);
         evaluator.SetInput("trap_front", IsTrapFront());
     }
 
@@ -90,24 +89,14 @@ public class Player : MonoBehaviour
         if (evaluator.ReadOutput("rotate_right")) { Rotate(1); }
         if (evaluator.ReadOutput("rotate_left")) { Rotate(-1); }
         if (evaluator.ReadOutput("move")) { Move(); audioMove.Play(); }
-
-        if (ateCheese)
-        {
-            ticksSinceCheeseWasEaten++;
-            if (ticksSinceCheeseWasEaten >= 1)
-            {
-                ticksSinceCheeseWasEaten = 0;
-                ateCheese = false;
-            }
-        }
     }
 
     private void Update()
     {
         if (isDead) return;
-        if (Input.GetKeyDown(KeyCode.W)) Move();
+        /*if (Input.GetKeyDown(KeyCode.W)) Move();
         if (Input.GetKeyDown(KeyCode.R)) Rotate(1);
-        if (Input.GetKeyDown(KeyCode.Z)) Attack();
+        if (Input.GetKeyDown(KeyCode.Z)) Attack();*/
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,7 +109,7 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Cheese"))
         {
             audioEat.Play();
-            ateCheese = true;
+            ateOneCheese = true;
             LevelManager.Instance.mazeManager.CollectCheese();
             Destroy(other.gameObject);
         }
