@@ -85,8 +85,7 @@ public class LevelManager : MonoBehaviour
     public void SetCustomMazePrefab(GameObject maze)
     {
         mazePrefab = maze;
-        mazeManager = mazeClone.GetComponent<MazeManager>();
-        //mazePrefab.SetActive(false);
-        //InstantiateMaze();
+        mazeManager = maze.GetComponent<MazeManager>();
+        mazeManager.collectedCheeses = 0;
     }
 }

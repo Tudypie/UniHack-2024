@@ -167,7 +167,10 @@ public class Player : MonoBehaviour
 
     private bool IsWallFront()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), LayerMask.GetMask("Wall"), transform.forward)) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Wall"), LayerMask.GetMask("Wall"), transform.forward)) 
+        { 
+            return true; 
+        }
         return false;
     }
 
@@ -222,7 +225,9 @@ public class Player : MonoBehaviour
 
     private bool IsTrapFront()
     {
-        if (GetObstacleInDirection(LayerMask.GetMask("Trap", "Wall"), LayerMask.GetMask("Trap"), transform.forward)) { return true; }
+        if (GetObstacleInDirection(LayerMask.GetMask("Trap", "Wall"), LayerMask.GetMask("Trap"), transform.forward)) { 
+            return true; 
+        }
         return false;
     }
 

@@ -4,7 +4,7 @@ public class MazeManager : MonoBehaviour
 {
     public int cheesesToCollect;
 
-    [SerializeField] private int collectedCheeses = 0;
+    public int collectedCheeses = 0;
 
     public void CollectCheese()
     {
