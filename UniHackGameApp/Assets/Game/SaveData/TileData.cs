@@ -7,7 +7,7 @@ public class TileData
     public Vector3 position;
     public Quaternion rotation;
 
-    public Tile.Wall wall;
+    public Tile.Wall walls;
 
     public bool hasCheese;
     public bool hasTrap;

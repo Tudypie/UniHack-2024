@@ -34,8 +34,11 @@ public class Player : MonoBehaviour
     private void Start()
     {
         evaluator = CircuitEvaluator.Instance;
-        evaluator.onBeforeTick += OnBeforeTick;
-        evaluator.onAfterTick += OnAfterTick;
+        if (evaluator)
+        { 
+            evaluator.onBeforeTick += OnBeforeTick;
+            evaluator.onAfterTick += OnAfterTick;
+        }
     }
 
     private void OnDestroy()
@@ -209,6 +212,22 @@ public class Player : MonoBehaviour
     {
         if (GetObstacleInDirection(LayerMask.GetMask("Trap", "Wall"), LayerMask.GetMask("Trap"), transform.forward)) { return true; }
         return false;
+    }
+
+
+    public void LoadData(PlayerData data)
+    {
+        transform.position = data.position;
+        transform.rotation = data.rotation;
+    }
+
+    public PlayerData GetData()
+    {
+        return new PlayerData
+        {
+            position = transform.position,
+            rotation = transform.rotation,
+        };
     }
 
     private Transform GetObstacleInDirection(LayerMask raycastLayer, LayerMask targetLayer, Vector3 direction)

@@ -1,15 +1,19 @@
 ﻿
 using System;
-using Unity.Properties;
+using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class TileEditorUI : MonoBehaviour
 {
     [SerializeField] ButtonToPrefab[] buttonsToPrefabs;
 
-    public ButtonToPrefab selectedPrefab;
-    
+    public ButtonToPrefab selectedPrefab = null;
+
+    public Player player;
+
     [Serializable]
     public class ButtonToPrefab
     {
@@ -20,51 +24,123 @@ public class TileEditorUI : MonoBehaviour
 
     void Start()
     {
-        var defaultColor = new Color(1, 1, 1, .75f);
-        var selectedColor = new Color(1, 1, 1, 1);
+        var defaultColor = new Color(1, 1, 1, 1);
+        var selectedColor = new Color(.9f, .9f, .9f, 1);
         foreach (var kv in buttonsToPrefabs)
         {
             kv.button.GetComponent<Image>().color = defaultColor;
             kv.button.onClick.AddListener(() =>
             {
-                if(selectedPrefab != null)
+                if (selectedPrefab != null && selectedPrefab.button)
                 {
-                    kv.button.GetComponent<Image>().color = defaultColor;
+                    selectedPrefab.button.GetComponent<Image>().color = defaultColor;
                 }
 
-                kv.button.GetComponent<Image>().color = selectedColor; 
+                kv.button.GetComponent<Image>().color = selectedColor;
 
                 selectedPrefab = kv;
             });
-        }    
+        }
     }
+
+    public static bool IsMouseOverUI()
+    {
+        PointerEventData pointerData = new PointerEventData(EventSystem.current)
+        {
+            position = Input.mousePosition
+        };
+
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(pointerData, raycastResults);
+
+        return raycastResults.Count > 0;
+    }
+
 
     void Update()
     {
-        if (selectedPrefab != null && Input.GetMouseButtonDown(0))
+        var leftMouse = Input.GetMouseButtonDown(0);
+        var rightMouse = Input.GetMouseButtonDown(1);
+        var mouseOverGui = IsMouseOverUI();
+        var rotate = Input.GetKeyDown(KeyCode.R);
+
+        if (rotate)
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 GameObject hitObject = hit.collider.gameObject;
-                if(hitObject.tag == "Ground")
-                {
+                Tile tile = hitObject.GetComponent<Tile>() ?? hitObject.GetComponentInParent<Tile>();
 
-                }
-                else if (hitObject.GetComponent<Tile>())
+                Player player = hitObject.GetComponent<Player>() ?? hitObject.GetComponentInParent<Player>();
+                if (tile)
                 {
+                    tile.transform.Rotate(Vector3.up, 90);
+                }
+                if (player)
+                {
+                    player.transform.Rotate(Vector3.up, 90);
+                }
+            }
+        }
+
+        if (mouseOverGui == false && selectedPrefab != null && (rightMouse || leftMouse))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                var p = hit.point;
+                p.y = 0;
+                p.z = Mathf.RoundToInt(p.z);
+                p.x = Mathf.RoundToInt(p.x);
+
+                GameObject hitObject = hit.collider.gameObject;
+                if (hitObject.tag == "Ground")
+                {
+                
+                    if (leftMouse && selectedPrefab.prefab && selectedPrefab.prefab.GetComponent<Tile>() != null)
+                    {
+                        var clone = Instantiate(selectedPrefab.prefab);
+                        clone.transform.position = p;
+                    }
+                }
+                else if (hitObject.GetComponent<Tile>() || hitObject.GetComponentInParent<Tile>())
+                {
+                    var tile = hitObject.GetComponent<Tile>() ?? hitObject.GetComponentInParent<Tile>();
+
+                    if (rightMouse)
+                    {
+                        if (hitObject.layer == LayerMask.NameToLayer("Cheese") || hitObject.layer == LayerMask.NameToLayer("Trap") || hitObject.layer == LayerMask.NameToLayer("Trap") || hitObject.tag == "TilePlate")
+                        {
+                            hitObject.SetActive(false);
+                            return;
+                        }
+
+                        Destroy(tile.gameObject);
+                    }
+
                     if (selectedPrefab.button.name == "Rat")
                     {
-
+                        if(player == null)
+                        {
+                            player = Instantiate(selectedPrefab.prefab).GetComponent<Player>();
+                            player.enabled = false;
+                        }
+                        player.transform.position = p;
                     }
-                    else if(selectedPrefab.button.name == "Cheese")
+                    else if(selectedPrefab.button.name == "Plate")
                     {
-
+                        tile.plate.SetActive(true);
                     }
-                    else if(selectedPrefab.button.name == "Trap")
+                    else if (selectedPrefab.button.name == "Cheese")
                     {
-
+                        tile.cheese.SetActive(true);
+                    }
+                    else if (selectedPrefab.button.name == "Trap")
+                    {
+                        tile.trap.SetActive(true);
                     }
                 }
             }

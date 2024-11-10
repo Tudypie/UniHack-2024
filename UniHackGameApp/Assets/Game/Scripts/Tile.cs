@@ -7,17 +7,12 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] GameObject cheese;
-    [SerializeField] GameObject trap;
-    [SerializeField] GameObject plate;
+    public GameObject cheese;
+    public GameObject trap;
+    public GameObject plate;
 
     [SerializeField] List<WallToTransform> wallToTransforms;
 
-    [SerializeField] Wall walls;
-    [SerializeField] bool hasCheese;
-    [SerializeField] bool hasTrap;
-    [SerializeField] bool hasPlayer;
-    [SerializeField] bool hasPlate;
 
     [Serializable]
     public class WallToTransform
@@ -37,32 +32,37 @@ public class Tile : MonoBehaviour
 
     public TileData GetData()
     {
+        Wall wall = Wall.None;
+        
+        foreach(var kv in wallToTransforms)
+        {
+            if (kv.gameObject.activeSelf)
+            {
+                wall |= kv.wall;
+            }
+        }
+
+
         return new TileData
         {
-            hasCheese = hasCheese,
-            hasPlate = hasPlate,
-            hasTrap = hasTrap,
+            hasCheese = cheese.activeSelf,
+            hasPlate = plate.activeSelf,
+            hasTrap = trap.activeSelf,
             position = transform.position,
             rotation = transform.rotation,
-            wall = walls,
+            walls = wall,
         };
     }
 
     public void LoadData(TileData data)
     {
-        hasCheese = data.hasCheese;
-        hasPlate = data.hasPlate;
-        hasTrap = data.hasTrap;
-
-        walls = data.wall;
-
-        trap.SetActive(hasTrap); 
-        cheese.SetActive(hasCheese);
-        plate.SetActive(hasPlate);
+        trap.SetActive(data.hasTrap); 
+        cheese.SetActive(data.hasCheese);
+        plate.SetActive(data.hasPlate);
 
         foreach(var kv in wallToTransforms)
         {
-            if((walls & kv.wall) != Wall.None)
+            if((data.walls & kv.wall) != Wall.None)
             {
                 kv.gameObject.SetActive(true);
             }

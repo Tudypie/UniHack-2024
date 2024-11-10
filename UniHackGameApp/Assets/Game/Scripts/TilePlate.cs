@@ -15,7 +15,10 @@ public class TilePlate : MonoBehaviour
     private void Start()
     {
         evaluator = CircuitEvaluator.Instance;
-        evaluator.onBeforeTick += OnBeforeTick;
+        if (evaluator)
+        {
+            evaluator.onBeforeTick += OnBeforeTick;
+        }
     }
 
     private void OnBeforeTick()
