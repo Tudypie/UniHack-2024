@@ -225,6 +225,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4319867323159995566}
+  - component: {fileID: 56813704676422554}
   m_Layer: 0
   m_Name: Tile
   m_TagString: Untagged
@@ -256,6 +257,35 @@ Transform:
   - {fileID: 4124531399307871822}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &56813704676422554
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1125406649847419610}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7f0c2e8fbc683e48bd57bf206f6c8a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cheese: {fileID: 7976652810171620072}
+  trap: {fileID: 313666571622120856}
+  plate: {fileID: 2840419390296170632}
+  wallToTransforms:
+  - wall: 2
+    gameObject: {fileID: 8645200091736833235}
+  - wall: 4
+    gameObject: {fileID: 8919160775170744768}
+  - wall: 8
+    gameObject: {fileID: 8676622185419527211}
+  - wall: 1
+    gameObject: {fileID: 4066180010498856487}
+  walls: 0
+  hasCheese: 0
+  hasTrap: 0
+  hasPlayer: 0
+  hasPlate: 0
 --- !u!1 &2840419390296170632
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,6 +1002,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 998eebec63e5fc044af46d5d65e742ba, type: 3}
+--- !u!1 &313666571622120856 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6825511535958513581, guid: 998eebec63e5fc044af46d5d65e742ba, type: 3}
+  m_PrefabInstance: {fileID: 6549158005979490869}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &516777139140275611 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6757860766590666670, guid: 998eebec63e5fc044af46d5d65e742ba, type: 3}
@@ -1041,5 +1076,10 @@ PrefabInstance:
 --- !u!4 &4124531399307871822 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5903329231690441756, guid: 5f755fcd0325b0c428cb66ab07f3c5a2, type: 3}
+  m_PrefabInstance: {fileID: 7552978427639652946}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7976652810171620072 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 460302482141149370, guid: 5f755fcd0325b0c428cb66ab07f3c5a2, type: 3}
   m_PrefabInstance: {fileID: 7552978427639652946}
   m_PrefabAsset: {fileID: 0}
