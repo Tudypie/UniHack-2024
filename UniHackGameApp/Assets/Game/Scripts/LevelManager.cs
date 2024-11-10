@@ -78,4 +78,10 @@ public class LevelManager : MonoBehaviour
         string sceneToLoad = SceneManager.GetActiveScene().name + "Solved";
         SceneManager.LoadScene(sceneToLoad);
     }
+
+    public void SetCustomMazePrefab(GameObject maze)
+    {
+        mazePrefab = maze;
+        mazePrefab.SetActive(false);
+    }
 }
