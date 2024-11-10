@@ -32,6 +32,7 @@ public class LevelManager : MonoBehaviour
         if (mazePrefab == null) { return; }
         if (mazeClone != null) { Destroy(mazeClone); }
         mazeClone = Instantiate(mazePrefab);
+        mazeClone.gameObject.SetActive(true);
         mazeManager = mazeClone.GetComponent<MazeManager>();
     }
 
@@ -78,10 +79,11 @@ public class LevelManager : MonoBehaviour
         string sceneToLoad = SceneManager.GetActiveScene().name + "Solved";
         SceneManager.LoadScene(sceneToLoad);
     }
-
+     
     public void SetCustomMazePrefab(GameObject maze)
     {
         mazePrefab = maze;
         mazePrefab.SetActive(false);
+        InstantiateMaze();
     }
 }

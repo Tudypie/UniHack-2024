@@ -274,13 +274,13 @@ MonoBehaviour:
   plate: {fileID: 2840419390296170632}
   wallToTransforms:
   - wall: 2
-    gameObject: {fileID: 8645200091736833235}
+    gameObject: {fileID: 7673811099807019121}
   - wall: 4
-    gameObject: {fileID: 8919160775170744768}
+    gameObject: {fileID: 993184567469885442}
   - wall: 8
-    gameObject: {fileID: 8676622185419527211}
+    gameObject: {fileID: 3541363979446054085}
   - wall: 1
-    gameObject: {fileID: 4066180010498856487}
+    gameObject: {fileID: 5612254494863239439}
 --- !u!1 &2840419390296170632
 GameObject:
   m_ObjectHideFlags: 0

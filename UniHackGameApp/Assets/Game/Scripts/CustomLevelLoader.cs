@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class CustomLevelLoader : MonoBehaviour
 {
-    [SerializeField] private Transform mazeParent;
-    [SerializeField] private GameObject tilePrefab;
+    [SerializeField] Transform mazeParent;
+    [SerializeField] GameObject tilePrefab;
+    [SerializeField] GameObject playerPrefab;
 
     private void Start()
     {
-        LevelData levelData = LevelData.LoadFromFile();
+        LevelData levelData = LevelData.OpenFileDialog();
         LoadLevel(levelData);
     }
 
@@ -19,6 +20,10 @@ public class CustomLevelLoader : MonoBehaviour
             newTile.transform.parent = mazeParent;
             newTile.GetComponent<Tile>().LoadData(levelData.tiles[i]);
         }
+
+        var player = Instantiate(playerPrefab);
+        player.GetComponent<Player>().LoadData(levelData.player);
+
         LevelManager.Instance.SetCustomMazePrefab(mazeParent.gameObject);
     }
 }

@@ -63,7 +63,10 @@ public class LevelData
     // Open a file dialog to select a JSON file and load it into LevelData
     public static LevelData OpenFileDialog()
     {
-        string[] paths = StandaloneFileBrowser.OpenFilePanel("Open File", "", "json", false);
+        // Set default path to the persistent data path
+        string defaultPath = Application.persistentDataPath;
+
+        string[] paths = StandaloneFileBrowser.OpenFilePanel("Open File", defaultPath, "json", false);
 
         if (paths.Length > 0)
         {
@@ -87,7 +90,10 @@ public class LevelData
     // Open a save file dialog to save LevelData as a JSON file
     public static void SaveFileDialog(LevelData levelData)
     {
-        string path = StandaloneFileBrowser.SaveFilePanel("Save File", "", "LevelData.json", "json");
+        // Set default path to the persistent data path
+        string defaultPath = Application.persistentDataPath;
+
+        string path = StandaloneFileBrowser.SaveFilePanel("Save File", defaultPath, "LevelData.json", "json");
 
         if (!string.IsNullOrEmpty(path))
         {
