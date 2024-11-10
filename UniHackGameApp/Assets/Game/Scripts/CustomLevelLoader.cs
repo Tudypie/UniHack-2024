@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CustomLevelLoader : MonoBehaviour
 {
@@ -25,5 +26,10 @@ public class CustomLevelLoader : MonoBehaviour
         player.GetComponent<Player>().LoadData(levelData.player);
 
         LevelManager.Instance.SetCustomMazePrefab(mazeParent.gameObject);
+    }
+
+    public void BackToEditor()
+    {
+        SceneManager.LoadScene("LevelEditor");
     }
 }
