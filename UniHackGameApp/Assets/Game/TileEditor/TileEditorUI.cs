@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
-using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -25,8 +24,8 @@ public class TileEditorUI : MonoBehaviour
     [SerializeField] Button playButton;
     [SerializeField] Button homeButton;
     [SerializeField] Transform maze;
-    
- 
+
+
     public Player player;
 
     [Serializable]
@@ -83,9 +82,9 @@ public class TileEditorUI : MonoBehaviour
             });
         }
 
-        if(lastSaved != null)
+        if (lastSaved != null)
         {
-            Load(lastSaved); 
+            Load(lastSaved);
         }
     }
 
@@ -124,7 +123,7 @@ public class TileEditorUI : MonoBehaviour
 
     LevelData GetSave()
     {
-        if(player == null)
+        if (player == null)
         {
             return null;
         }
@@ -135,7 +134,7 @@ public class TileEditorUI : MonoBehaviour
             player = player.GetData(),
             tiles = tiles.Select(tile => tile.GetData()).ToList(),
             cheeseWin = tiles.Count(tile => tile.GetData().hasCheese && !tile.GetData().hasTrap)
-        }; 
+        };
 
         return levelData;
     }
@@ -196,10 +195,10 @@ public class TileEditorUI : MonoBehaviour
                 GameObject hitObject = hit.collider.gameObject;
                 if (hitObject.tag == "Ground")
                 {
-                
+
                     if (leftMouse && selectedPrefab.prefab && selectedPrefab.prefab.GetComponent<Tile>() != null)
                     {
-                        var clone = Instantiate(selectedPrefab.prefab,maze);
+                        var clone = Instantiate(selectedPrefab.prefab, maze);
                         clone.transform.position = p;
                     }
                 }
@@ -220,7 +219,7 @@ public class TileEditorUI : MonoBehaviour
 
                     if (selectedPrefab.button.name == "Rat")
                     {
-                        if(player == null)
+                        if (player == null)
                         {
                             player = Instantiate(selectedPrefab.prefab).GetComponent<Player>();
                             player.enabled = false;
@@ -228,7 +227,7 @@ public class TileEditorUI : MonoBehaviour
                         p.y = .14f;
                         player.transform.position = p;
                     }
-                    else if(selectedPrefab.button.name == "Plate")
+                    else if (selectedPrefab.button.name == "Plate")
                     {
                         tile.plate.SetActive(true);
                     }
