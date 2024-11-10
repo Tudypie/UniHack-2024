@@ -24,7 +24,7 @@ public class CircuitEvaluator : MonoBehaviour
     [SerializeField] Transform inputsContainer;
 
     float lastTimeTicked;
-    bool isRunning;
+    public bool isRunning;
 
     public static CircuitEvaluator Instance { get; private set; }
 

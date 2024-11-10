@@ -2,9 +2,11 @@ using DG.Tweening;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements;
 
 public class LevelManager : MonoBehaviour
 {
+    [SerializeField] private int currentLevel;
     [SerializeField] private GameObject mazePrefab;
     [SerializeField] private Transform losePanel;
     [SerializeField] private Transform winPanel;
@@ -61,11 +63,19 @@ public class LevelManager : MonoBehaviour
 
     public void NextLevel()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        string nextSceneName = "Level0" + (currentLevel + 1).ToString();
+        SceneManager.LoadScene(nextSceneName);
+
     }
 
     public void ReturnToMenu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void ShowSolution()
+    {
+        string sceneToLoad = SceneManager.GetActiveScene().name + "Solved";
+        SceneManager.LoadScene(sceneToLoad);
     }
 }

@@ -452,11 +452,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1767082260443087084, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 100
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 1767082260443087084, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 1767082260443087084, guid: 2697928e3b6aced48bc7a8938cb6bb47, type: 3}
       propertyPath: m_LocalPosition.x
@@ -609,3 +609,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   returnToPos: 0
+  allowDragChildren: 0

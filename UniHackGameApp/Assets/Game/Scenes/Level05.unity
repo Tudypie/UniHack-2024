@@ -274,6 +274,7 @@ MonoBehaviour:
   tickDuration: 1
   outputsContainer: {fileID: 1543370703}
   inputsContainer: {fileID: 1543370701}
+  isRunning: 0
 --- !u!4 &851408446
 Transform:
   m_ObjectHideFlags: 0
@@ -783,6 +784,10 @@ PrefabInstance:
       propertyPath: mazePrefab
       value: 
       objectReference: {fileID: 6122277308968565030, guid: 64c78dc474af2e14c920dad824357708, type: 3}
+    - target: {fileID: 2707545552006613343, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: currentLevel
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 3784290913670382377, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

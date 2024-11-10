@@ -9,8 +9,11 @@ EditorBuildSettings:
     path: Assets/Game/Scenes/MainMenu.unity
     guid: 3f199e69d0331304e89f73ddfcf9dfe7
   - enabled: 1
-    path: Assets/Game/Scenes/Level01.unity
+    path: Assets/Game/Scenes/Level00.unity
     guid: ae2735dc67e96034fb7839888c17d370
+  - enabled: 1
+    path: Assets/Game/Scenes/Level01.unity
+    guid: 9b023fe317bf54442983bb3285e65847
   - enabled: 1
     path: Assets/Game/Scenes/Level02.unity
     guid: 901caf552282cc441a505d2c40783434
@@ -26,6 +29,30 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Game/Scenes/Level06.unity
     guid: 3f4df77430b93814499373df946dc76d
+  - enabled: 1
+    path: Assets/Game/Scenes/MainMenuSolved.unity
+    guid: 8fdcf5a6056ed8842a94ec87dd5515a4
+  - enabled: 1
+    path: Assets/Game/Scenes/Level00Solved.unity
+    guid: 77b38c1ede5785449bcb03cd582e7f03
+  - enabled: 1
+    path: Assets/Game/Scenes/Level01Solved.unity
+    guid: e1686a304712bd64d824a6fb5965f889
+  - enabled: 1
+    path: Assets/Game/Scenes/Level02Solved.unity
+    guid: 0b515c34942946a46b6f3bf7de031891
+  - enabled: 1
+    path: Assets/Game/Scenes/Level03Solved.unity
+    guid: 57de972d36819954f9bddbbc100cc358
+  - enabled: 1
+    path: Assets/Game/Scenes/Level04Solved.unity
+    guid: 73fe875e9b3a25d4daf8bb596f662573
+  - enabled: 1
+    path: Assets/Game/Scenes/Level05Solved.unity
+    guid: a00fa9bac27a6c744b3de10eae037228
+  - enabled: 1
+    path: Assets/Game/Scenes/Level06Solved.unity
+    guid: 446e21172a2e67341bf76c96ea7ffb3b
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}
   m_UseUCBPForAssetBundles: 0
