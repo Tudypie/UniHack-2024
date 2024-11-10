@@ -3,8 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
+using UnityEditor.Overlays;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class TileEditorUI : MonoBehaviour
@@ -13,9 +15,13 @@ public class TileEditorUI : MonoBehaviour
 
     public ButtonToPrefab selectedPrefab = null;
 
+    public static LevelData lastSaved;
+
     [SerializeField] Button saveButton;
     [SerializeField] Button loadButton;
+    [SerializeField] Button playButton;
     [SerializeField] Transform maze;
+    
  
     public Player player;
 
@@ -31,6 +37,11 @@ public class TileEditorUI : MonoBehaviour
         saveButton.onClick.AddListener(() =>
         {
             Save();
+        });
+
+        playButton.onClick.AddListener(() =>
+        {
+            Play();
         });
 
         var defaultColor = new Color(1, 1, 1, 1);
@@ -52,14 +63,28 @@ public class TileEditorUI : MonoBehaviour
         }
     }
 
+    void Play()
+    {
+        Save();
+        SceneManager.LoadScene("LevelCustom");
+    }
+
     void Save()
     {
+        if(player == null)
+        {
+            return;
+        }
+
         var tiles = maze.GetComponentsInChildren<Tile>();
         var levelData = new LevelData()
         {
             player = player.GetData(),
-            tiles = tiles.Select(tile => tile.GetData()).ToList()
+            tiles = tiles.Select(tile => tile.GetData()).ToList(),
+            cheeseWin = tiles.Count(tile => tile.cheese && !tile.trap)
         };
+
+        lastSaved = levelData;
         LevelData.SaveFileDialog(levelData);
     }
 

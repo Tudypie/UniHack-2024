@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MazeManager : MonoBehaviour
 {
-    [SerializeField] private int cheesesToCollect;
+    public int cheesesToCollect;
 
     [SerializeField] private int collectedCheeses = 0;
 

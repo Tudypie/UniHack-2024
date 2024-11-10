@@ -9,6 +9,7 @@ public class LevelData
 {
     public List<TileData> tiles;
     public PlayerData player;
+    public int cheeseWin;
 
     private static readonly string appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "CheesyProgramming");
 
@@ -101,7 +102,7 @@ public class LevelData
             {
                 string json = JsonUtility.ToJson(levelData, true);
                 File.WriteAllText(path, json);
-                Debug.Log("File saved at: " + path);
+                Debug.Log("File saved at: " + path);    
             }
             catch (Exception e)
             {

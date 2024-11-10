@@ -8,8 +8,10 @@ public class CustomLevelLoader : MonoBehaviour
 
     private void Start()
     {
-        LevelData levelData = LevelData.OpenFileDialog();
-        LoadLevel(levelData);
+        if(TileEditorUI.lastSaved != null)
+        {
+            LoadLevel(TileEditorUI.lastSaved);
+        }
     }
 
     private void LoadLevel(LevelData levelData)
@@ -23,6 +25,8 @@ public class CustomLevelLoader : MonoBehaviour
 
         var player = Instantiate(playerPrefab);
         player.GetComponent<Player>().LoadData(levelData.player);
+
+        mazeParent.GetComponent<MazeManager>().cheesesToCollect = levelData.cheeseWin;
 
         LevelManager.Instance.SetCustomMazePrefab(mazeParent.gameObject);
     }
