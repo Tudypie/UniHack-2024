@@ -81,8 +81,8 @@ public class TileEditorUI : MonoBehaviour
         {
             player = player.GetData(),
             tiles = tiles.Select(tile => tile.GetData()).ToList(),
-            cheeseWin = tiles.Count(tile => tile.cheese && !tile.trap)
-        };
+            cheeseWin = tiles.Count(tile => tile.GetData().hasCheese && !tile.GetData().hasTrap)
+        }; 
 
         lastSaved = levelData;
         LevelData.SaveFileDialog(levelData);
