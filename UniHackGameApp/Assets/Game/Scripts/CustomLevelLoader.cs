@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CustomLevelLoader : MonoBehaviour
 {
@@ -29,5 +30,10 @@ public class CustomLevelLoader : MonoBehaviour
         mazeParent.GetComponent<MazeManager>().cheesesToCollect = levelData.cheeseWin;
 
         LevelManager.Instance.SetCustomMazePrefab(mazeParent.gameObject);
+    }
+
+    public void BackToEditor()
+    {
+        SceneManager.LoadScene("LevelEditor");
     }
 }
