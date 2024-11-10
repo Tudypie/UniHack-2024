@@ -293,7 +293,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2629659880089052039, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2901649138863053818, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: enabledGates.Array.size
@@ -473,11 +473,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377585563239012159, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6377585563239012159, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6377585563239012159, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_LocalScale.x
@@ -501,11 +501,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6377585563239012159, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6377585563239012159, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -8.220001
       objectReference: {fileID: 0}
     - target: {fileID: 6395784526831749837, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_IsActive
@@ -697,7 +697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8142627941440857222, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 0
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8142627941440857222, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_LocalScale.x
@@ -2446,6 +2446,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3784290913670382377, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7232008685308587634, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8907365899924671138, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
