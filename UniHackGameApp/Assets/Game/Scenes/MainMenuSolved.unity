@@ -437,7 +437,19 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5727987002308998899, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 16.666626
+      objectReference: {fileID: 0}
+    - target: {fileID: 5727987002308998899, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 16.666626
+      objectReference: {fileID: 0}
     - target: {fileID: 7232008685308587634, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7857984104792437487, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -790,7 +802,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 90990634cd3fb3b4e8ff3497e9b928b7, type: 3}
   m_Resource: {fileID: 8300000, guid: 90990634cd3fb3b4e8ff3497e9b928b7, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
@@ -1083,7 +1095,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cheesy Programming
+  m_text: cheddar_chase
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 722b5f7e81486a44091267966ecb46a3, type: 2}
   m_sharedMaterial: {fileID: -1482176064098519545, guid: 722b5f7e81486a44091267966ecb46a3, type: 2}
@@ -2456,6 +2468,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1111168929269558233, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1111168929269558233, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2552,8 +2568,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2364085579770589328, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2364085579770589328, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -259
+      value: -211
       objectReference: {fileID: 0}
     - target: {fileID: 2364085579770589328, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2597,7 +2617,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3297608002550114287, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 372.83
+      value: 388.431
       objectReference: {fileID: 0}
     - target: {fileID: 3297608002550114287, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_SizeDelta.y
@@ -2625,7 +2645,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3297608002550114287, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 276
+      value: 236.80054
       objectReference: {fileID: 0}
     - target: {fileID: 3297608002550114287, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2673,6 +2693,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3891409717807329539, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
       propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3891409717807329539, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
+      propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3891409717807329539, guid: 24b0ff656eece29408c9507d6aacaab9, type: 3}
