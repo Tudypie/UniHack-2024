@@ -17,6 +17,9 @@ public class TileEditorUI : MonoBehaviour
 
     public static LevelData lastSaved;
 
+    [SerializeField] GameObject tilePrefab;
+    [SerializeField] GameObject playerPrefab;
+
     [SerializeField] Button saveButton;
     [SerializeField] Button loadButton;
     [SerializeField] Button playButton;
@@ -37,12 +40,24 @@ public class TileEditorUI : MonoBehaviour
     {
         saveButton.onClick.AddListener(() =>
         {
-            Save();
+            lastSaved = GetSave();
+            if (lastSaved != null)
+            {
+                LevelData.SaveFileDialog(lastSaved);
+            }
         });
 
         playButton.onClick.AddListener(() =>
         {
+            lastSaved = GetSave();
             Play();
+        });
+
+        loadButton.onClick.AddListener(() =>
+        {
+            var levelData = LevelData.OpenFileDialog();
+            if (levelData == null) return;
+            Load(levelData);
         });
 
         homeButton.onClick.AddListener(() =>
@@ -67,11 +82,16 @@ public class TileEditorUI : MonoBehaviour
                 selectedPrefab = kv;
             });
         }
+
+        if(lastSaved != null)
+        {
+            Load(lastSaved); 
+        }
     }
 
     void Play()
     {
-        Save();
+        GetSave();
         SceneManager.LoadScene("LevelCustom");
     }
 
@@ -80,16 +100,33 @@ public class TileEditorUI : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void Load()
+    void Load(LevelData levelData)
     {
 
+        for (int i = 0; i < maze.childCount; i++)
+        {
+            Destroy(maze.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < levelData.tiles.Count; i++)
+        {
+            GameObject newTile = Instantiate(tilePrefab, levelData.tiles[i].position, levelData.tiles[i].rotation);
+            newTile.transform.parent = maze;
+            newTile.GetComponent<Tile>().LoadData(levelData.tiles[i]);
+        }
+
+        if (player != null) { Destroy(player.gameObject); }
+        player = Instantiate(playerPrefab).GetComponent<Player>();
+        player.LoadData(levelData.player);
+
+        lastSaved = levelData;
     }
 
-    void Save()
+    LevelData GetSave()
     {
         if(player == null)
         {
-            return;
+            return null;
         }
 
         var tiles = maze.GetComponentsInChildren<Tile>();
@@ -100,8 +137,7 @@ public class TileEditorUI : MonoBehaviour
             cheeseWin = tiles.Count(tile => tile.GetData().hasCheese && !tile.GetData().hasTrap)
         }; 
 
-        lastSaved = levelData;
-        LevelData.SaveFileDialog(levelData);
+        return levelData;
     }
 
     public static bool IsMouseOverUI()

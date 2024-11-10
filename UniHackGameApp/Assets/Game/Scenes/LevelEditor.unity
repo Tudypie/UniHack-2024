@@ -2473,6 +2473,8 @@ MonoBehaviour:
   selectedPrefab:
     button: {fileID: 0}
     prefab: {fileID: 0}
+  tilePrefab: {fileID: 1125406649847419610, guid: f9f83f4fc4e0d3e49b57b4e255f700fe, type: 3}
+  playerPrefab: {fileID: 8400980381851374244, guid: 18c36143a03def64aae934a0ea13de80, type: 3}
   saveButton: {fileID: 1097764332}
   loadButton: {fileID: 2005797600}
   playButton: {fileID: 2106888639}
