@@ -669,6 +669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 288845348}
+  - component: {fileID: 288845349}
   m_Layer: 0
   m_Name: Maze
   m_TagString: Untagged
@@ -691,6 +692,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &288845349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 288845347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c471eda67dc0d674ab6a5436292c0831, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cheesesToCollect: 0
+  collectedCheeses: 0
 --- !u!1 &317892177
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,6 +2352,7 @@ MonoBehaviour:
     prefab: {fileID: 0}
   saveButton: {fileID: 1097764332}
   loadButton: {fileID: 2005797600}
+  playButton: {fileID: 2106888639}
   maze: {fileID: 288845348}
   player: {fileID: 0}
 --- !u!1 &2106888637
