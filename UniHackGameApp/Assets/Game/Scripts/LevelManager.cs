@@ -55,7 +55,9 @@ public class LevelManager : MonoBehaviour
 
     public void RestartLevel()
     {
-        InstantiateMaze();
+        if (CustomLevelLoader.Instance == null) { InstantiateMaze(); }
+        else { CustomLevelLoader.Instance.ReloadLevel(); }
+
         winPanel.gameObject.SetActive(false);
         losePanel.gameObject.SetActive(false);
         CircuitEvaluator.Instance.ResetCircuit();
@@ -83,7 +85,7 @@ public class LevelManager : MonoBehaviour
     public void SetCustomMazePrefab(GameObject maze)
     {
         mazePrefab = maze;
-        mazePrefab.SetActive(false);
-        InstantiateMaze();
+        //mazePrefab.SetActive(false);
+        //InstantiateMaze();
     }
 }

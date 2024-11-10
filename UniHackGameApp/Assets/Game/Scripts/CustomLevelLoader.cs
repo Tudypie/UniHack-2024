@@ -7,6 +7,15 @@ public class CustomLevelLoader : MonoBehaviour
     [SerializeField] GameObject tilePrefab;
     [SerializeField] GameObject playerPrefab;
 
+    private GameObject playerClone;
+
+    public static CustomLevelLoader Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         if(TileEditorUI.lastSaved != null)
@@ -17,6 +26,11 @@ public class CustomLevelLoader : MonoBehaviour
 
     private void LoadLevel(LevelData levelData)
     {
+        for (int i = 0; i < mazeParent.childCount; i++)
+        {
+            Destroy(mazeParent.GetChild(i).gameObject);
+        }
+
         for (int i = 0; i < levelData.tiles.Count; i++)
         {
             GameObject newTile = Instantiate(tilePrefab, levelData.tiles[i].position, levelData.tiles[i].rotation);
@@ -24,12 +38,21 @@ public class CustomLevelLoader : MonoBehaviour
             newTile.GetComponent<Tile>().LoadData(levelData.tiles[i]);
         }
 
-        var player = Instantiate(playerPrefab);
-        player.GetComponent<Player>().LoadData(levelData.player);
+        if (playerClone != null) { Destroy(playerClone); }
+        playerClone = Instantiate(playerPrefab);
+        playerClone.GetComponent<Player>().LoadData(levelData.player);
 
         mazeParent.GetComponent<MazeManager>().cheesesToCollect = levelData.cheeseWin;
 
         LevelManager.Instance.SetCustomMazePrefab(mazeParent.gameObject);
+    }
+
+    public void ReloadLevel()
+    {
+        if (TileEditorUI.lastSaved != null)
+        {
+            LoadLevel(TileEditorUI.lastSaved);
+        }
     }
 
     public void BackToEditor()

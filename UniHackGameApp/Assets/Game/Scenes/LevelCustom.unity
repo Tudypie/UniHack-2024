@@ -1083,6 +1083,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1408695604848719823, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_text
+      value: Back to Editor
+      objectReference: {fileID: 0}
     - target: {fileID: 2707545552006613343, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: mazePrefab
       value: 
@@ -1127,6 +1131,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6301066771363993880, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 9168986231273176832}
+    - target: {fileID: 6301066771363993880, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: BackToEditor
+      objectReference: {fileID: 0}
+    - target: {fileID: 6301066771363993880, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CustomLevelLoader, Game
+      objectReference: {fileID: 0}
     - target: {fileID: 7232008685308587634, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1134,6 +1150,10 @@ PrefabInstance:
     - target: {fileID: 8907365899924671138, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
       propertyPath: m_Name
       value: LevelManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943541835094229717, guid: d9d0d0a2722547c418931b40857bb348, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
