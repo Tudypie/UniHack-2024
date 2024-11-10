@@ -20,6 +20,7 @@ public class TileEditorUI : MonoBehaviour
     [SerializeField] Button saveButton;
     [SerializeField] Button loadButton;
     [SerializeField] Button playButton;
+    [SerializeField] Button homeButton;
     [SerializeField] Transform maze;
     
  
@@ -42,6 +43,11 @@ public class TileEditorUI : MonoBehaviour
         playButton.onClick.AddListener(() =>
         {
             Play();
+        });
+
+        homeButton.onClick.AddListener(() =>
+        {
+            Home();
         });
 
         var defaultColor = new Color(1, 1, 1, 1);
@@ -67,6 +73,16 @@ public class TileEditorUI : MonoBehaviour
     {
         Save();
         SceneManager.LoadScene("LevelCustom");
+    }
+
+    void Home()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    void Load()
+    {
+
     }
 
     void Save()
