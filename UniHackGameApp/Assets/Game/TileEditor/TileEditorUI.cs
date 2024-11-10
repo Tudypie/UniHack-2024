@@ -17,6 +17,9 @@ public class TileEditorUI : MonoBehaviour
 
     public static LevelData lastSaved;
 
+    [SerializeField] GameObject tilePrefab;
+    [SerializeField] GameObject playerPrefab;
+
     [SerializeField] Button saveButton;
     [SerializeField] Button loadButton;
     [SerializeField] Button playButton;
@@ -43,6 +46,11 @@ public class TileEditorUI : MonoBehaviour
         playButton.onClick.AddListener(() =>
         {
             Play();
+        });
+
+        loadButton.onClick.AddListener(() =>
+        {
+            Load();
         });
 
         homeButton.onClick.AddListener(() =>
@@ -82,7 +90,26 @@ public class TileEditorUI : MonoBehaviour
 
     void Load()
     {
+        var levelData = LevelData.OpenFileDialog();
+        if(levelData == null) return;    
 
+        for (int i = 0; i < maze.childCount; i++)
+        {
+            Destroy(maze.GetChild(i).gameObject);
+        }
+
+        for (int i = 0; i < levelData.tiles.Count; i++)
+        {
+            GameObject newTile = Instantiate(tilePrefab, levelData.tiles[i].position, levelData.tiles[i].rotation);
+            newTile.transform.parent = maze;
+            newTile.GetComponent<Tile>().LoadData(levelData.tiles[i]);
+        }
+
+        if (player != null) { Destroy(player.gameObject); }
+        player = Instantiate(playerPrefab).GetComponent<Player>();
+        player.LoadData(levelData.player);
+
+        lastSaved = levelData;
     }
 
     void Save()
