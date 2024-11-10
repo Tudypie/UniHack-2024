@@ -1064,7 +1064,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Cheesy Programming
+  m_text: cheddar_chase
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 722b5f7e81486a44091267966ecb46a3, type: 2}
   m_sharedMaterial: {fileID: -1482176064098519545, guid: 722b5f7e81486a44091267966ecb46a3, type: 2}
