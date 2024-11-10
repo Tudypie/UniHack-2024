@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,10 @@ public class TileEditorUI : MonoBehaviour
 
     public ButtonToPrefab selectedPrefab = null;
 
+    [SerializeField] Button saveButton;
+    [SerializeField] Button loadButton;
+    [SerializeField] Transform maze;
+ 
     public Player player;
 
     [Serializable]
@@ -21,9 +26,13 @@ public class TileEditorUI : MonoBehaviour
         public GameObject prefab;
     }
 
-
     void Start()
     {
+        saveButton.onClick.AddListener(() =>
+        {
+            Save();
+        });
+
         var defaultColor = new Color(1, 1, 1, 1);
         var selectedColor = new Color(.9f, .9f, .9f, 1);
         foreach (var kv in buttonsToPrefabs)
@@ -41,6 +50,17 @@ public class TileEditorUI : MonoBehaviour
                 selectedPrefab = kv;
             });
         }
+    }
+
+    void Save()
+    {
+        var tiles = maze.GetComponentsInChildren<Tile>();
+        var levelData = new LevelData()
+        {
+            player = player.GetData(),
+            tiles = tiles.Select(tile => tile.GetData()).ToList()
+        };
+        LevelData.SaveFileDialog(levelData);
     }
 
     public static bool IsMouseOverUI()
@@ -102,7 +122,7 @@ public class TileEditorUI : MonoBehaviour
                 
                     if (leftMouse && selectedPrefab.prefab && selectedPrefab.prefab.GetComponent<Tile>() != null)
                     {
-                        var clone = Instantiate(selectedPrefab.prefab);
+                        var clone = Instantiate(selectedPrefab.prefab,maze);
                         clone.transform.position = p;
                     }
                 }

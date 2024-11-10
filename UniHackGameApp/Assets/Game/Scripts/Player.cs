@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
             evaluator.onBeforeTick += OnBeforeTick;
             evaluator.onAfterTick += OnAfterTick;
         }
+
+        mazePosition = new Vector2(transform.position.x, transform.position.z);
     }
 
     private void OnDestroy()

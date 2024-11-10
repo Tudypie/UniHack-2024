@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 8451273300095678384}
   - component: {fileID: 3458889989322286741}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: CubeFront
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,18 +274,13 @@ MonoBehaviour:
   plate: {fileID: 2840419390296170632}
   wallToTransforms:
   - wall: 2
-    gameObject: {fileID: 8645200091736833235}
+    gameObject: {fileID: 7673811099807019121}
   - wall: 4
-    gameObject: {fileID: 8919160775170744768}
+    gameObject: {fileID: 993184567469885442}
   - wall: 8
-    gameObject: {fileID: 8676622185419527211}
+    gameObject: {fileID: 3541363979446054085}
   - wall: 1
-    gameObject: {fileID: 4066180010498856487}
-  walls: 0
-  hasCheese: 0
-  hasTrap: 0
-  hasPlayer: 0
-  hasPlate: 0
+    gameObject: {fileID: 5612254494863239439}
 --- !u!1 &2840419390296170632
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +419,7 @@ GameObject:
   - component: {fileID: 3753951919809693899}
   - component: {fileID: 2436936700152801312}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: CubeBack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -564,7 +559,7 @@ GameObject:
   - component: {fileID: 7441643949027313537}
   - component: {fileID: 402349822671389785}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: CubeRight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -672,7 +667,7 @@ GameObject:
   - component: {fileID: 3221488244298684335}
   - component: {fileID: 123613589025414659}
   m_Layer: 6
-  m_Name: Cube
+  m_Name: CubeLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
