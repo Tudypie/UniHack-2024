@@ -40,17 +40,24 @@ public class TileEditorUI : MonoBehaviour
     {
         saveButton.onClick.AddListener(() =>
         {
-            Save();
+            lastSaved = GetSave();
+            if (lastSaved != null)
+            {
+                LevelData.SaveFileDialog(lastSaved);
+            }
         });
 
         playButton.onClick.AddListener(() =>
         {
+            lastSaved = GetSave();
             Play();
         });
 
         loadButton.onClick.AddListener(() =>
         {
-            Load();
+            var levelData = LevelData.OpenFileDialog();
+            if (levelData == null) return;
+            Load(levelData);
         });
 
         homeButton.onClick.AddListener(() =>
@@ -75,11 +82,16 @@ public class TileEditorUI : MonoBehaviour
                 selectedPrefab = kv;
             });
         }
+
+        if(lastSaved != null)
+        {
+            Load(lastSaved); 
+        }
     }
 
     void Play()
     {
-        Save();
+        GetSave();
         SceneManager.LoadScene("LevelCustom");
     }
 
@@ -88,10 +100,8 @@ public class TileEditorUI : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    void Load()
+    void Load(LevelData levelData)
     {
-        var levelData = LevelData.OpenFileDialog();
-        if(levelData == null) return;    
 
         for (int i = 0; i < maze.childCount; i++)
         {
@@ -112,11 +122,11 @@ public class TileEditorUI : MonoBehaviour
         lastSaved = levelData;
     }
 
-    void Save()
+    LevelData GetSave()
     {
         if(player == null)
         {
-            return;
+            return null;
         }
 
         var tiles = maze.GetComponentsInChildren<Tile>();
@@ -127,8 +137,7 @@ public class TileEditorUI : MonoBehaviour
             cheeseWin = tiles.Count(tile => tile.GetData().hasCheese && !tile.GetData().hasTrap)
         }; 
 
-        lastSaved = levelData;
-        LevelData.SaveFileDialog(levelData);
+        return levelData;
     }
 
     public static bool IsMouseOverUI()
